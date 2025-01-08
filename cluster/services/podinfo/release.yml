@@ -14,3 +14,11 @@ spec:
         name: podinfo
         namespace: flux-system
       interval: 1m
+  values:
+    replicaCount: 3
+    foo: value1
+    bar:
+    baz: value2
+    oof:
+    - item1
+    - item2
