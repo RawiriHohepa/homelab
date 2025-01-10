@@ -7,3 +7,5 @@ releases:
   namespace: longhorn
   chart: longhorn/longhorn
   version: "1.7.2"
+  values:
+  - "./values.yaml"

@@ -1,0 +1,16 @@
+replicaCount: 1
+
+volumes:
+  - name: jellyfin-nfs-storage
+    nfs:
+      server: 192.168.69.0
+      path: /volume1/NAS/MediaLibrary
+      readOnly: true
+
+volumeMounts:
+  - mountPath: /media-library
+    name: jellyfin-nfs-storage
+
+persistence:
+  media:
+    size: 5Gi

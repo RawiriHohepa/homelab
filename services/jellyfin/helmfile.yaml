@@ -1,0 +1,10 @@
+repositories:
+- name: jellyfin
+  url: https://jellyfin.github.io/jellyfin-helm
+
+releases:
+- name: jellyfin
+  namespace: services
+  chart: jellyfin/jellyfin
+  values:
+  - "./values.yaml"
