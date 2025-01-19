@@ -20,13 +20,6 @@ spec:
       containers:
       - name: uptime-kuma
         image: louislam/uptime-kuma:1
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits: 
-            memory: "512Mi"
-            cpu: "250m" 
         env:
         - name: UPTIME_KUMA_PORT
           value: "3001"
@@ -34,8 +27,8 @@ spec:
           - containerPort: 3001
         volumeMounts:
         - mountPath: /app/data
-          name: uptime-kuma-content
+          name: uptime-kuma-data
       volumes:
-      - name: uptime-kuma-content
+      - name: uptime-kuma-data
         persistentVolumeClaim:
-          claimName:  uptime-kuma-claim
+          claimName:  uptime-kuma-data-claim

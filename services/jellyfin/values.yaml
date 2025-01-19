@@ -1,7 +1,7 @@
 replicaCount: 1
 
 volumes:
-  - name: jellyfin-nfs-storage
+  - name: jellyfin-media-library-nfs
     nfs:
       server: 192.168.69.0
       path: /volume1/NAS/MediaLibrary
@@ -9,8 +9,11 @@ volumes:
 
 volumeMounts:
   - mountPath: /media-library
-    name: jellyfin-nfs-storage
+    name: jellyfin-media-library-nfs
 
 persistence:
+  config:
+    existingClaim: jellyfin-config-claim
   media:
     size: 5Gi
+    existingClaim: jellyfin-media-claim

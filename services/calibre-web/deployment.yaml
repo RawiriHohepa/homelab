@@ -27,12 +27,12 @@ spec:
         - mountPath: /config
           name: calibre-web-config
         - mountPath: /books
-          name: calibre-web-nfs-storage
+          name: calibre-web-books-nfs
       volumes:
       - name: calibre-web-config
         persistentVolumeClaim:
-          claimName:  calibre-web-claim
-      - name: calibre-web-nfs-storage
+          claimName:  calibre-web-config-claim
+      - name: calibre-web-books-nfs
         nfs:
           server: 192.168.69.0
           path: /volume1/NAS/Calibre/Rawiri

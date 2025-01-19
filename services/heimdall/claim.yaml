@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: calibre-web-config-volume
+  name: heimdall-config-volume
 spec:
   capacity:
-    storage: 5Gi
+    storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -12,13 +12,13 @@ spec:
   storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
-    volumeHandle: calibre-web-config-volume
+    volumeHandle: heimdall-config-volume
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: calibre-web-config-claim
+  name: heimdall-config-claim
   namespace: services
 spec:
   accessModes:
@@ -26,5 +26,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 5Gi
-  volumeName: calibre-web-config-volume
+      storage: 100Mi
+  volumeName: heimdall-config-volume
