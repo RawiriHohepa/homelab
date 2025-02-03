@@ -16,8 +16,6 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations:
-        backup.velero.io/backup-volumes: data
       labels:
         app: recipes
         tier: database
@@ -89,7 +87,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /bitnami/postgresql
-          name: data
+          name: tandoor-postgresql-data
       dnsPolicy: ClusterFirst
       initContainers:
       - command:
@@ -111,22 +109,14 @@ spec:
           runAsUser: 0
         volumeMounts:
         - mountPath: /bitnami/postgresql
-          name: data
+          name: tandoor-postgresql-data
       restartPolicy: Always
       securityContext:
         fsGroup: 1001
       serviceAccount: recipes
       serviceAccountName: recipes
       terminationGracePeriodSeconds: 30
-  volumeClaimTemplates:
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 2Gi
-      volumeMode: Filesystem
+      volumes:
+        - name: tandoor-postgresql-data
+          persistentVolumeClaim:
+            claimName: tandoor-postgresql-data-claim

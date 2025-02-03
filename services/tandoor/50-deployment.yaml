@@ -182,10 +182,10 @@ spec:
       volumes:
         - name: media
           persistentVolumeClaim:
-            claimName: recipes-media
+            claimName: tandoor-media-claim
         - name: static
           persistentVolumeClaim:
-            claimName: recipes-static
+            claimName: tandoor-static-claim
         - name: nginx-config
           configMap:
             name: recipes-nginx-config
