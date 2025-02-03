@@ -38,17 +38,19 @@ kubectl apply -f certificates/local-hohepa-dev-production.yaml
 # edit nginx to use production cert
 kubectl apply -f ../../services/nginx
 # wait until nginx uses the production cert
+kubectl delete -f ../../services/nginx
 
 cd ../longhorn
-kubectl apply -f .
 helmfile apply
+kubectl apply -f ingress.yaml
 # restore volumes from backup or create manually
 
-cd ../services
-
+cd ../../services
+kubectl apply -f namespace.yaml
 kubectl apply -f calibre-web
 kubectl apply -f uptime-kuma
 kubectl apply -f external
+kubectl apply -f tandoor
 
 cd heimdall
 kubectl apply -f .
