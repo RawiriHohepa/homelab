@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tdarr
+  namespace: services
+spec:
+  selector:
+    matchLabels:
+      app: tdarr
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tdarr
+    spec:
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
+      initContainers:
+      - name: volume-permissions
+        image: busybox:1.31.1
+        command: ["sh", "-c", "chown -R 0:0 /app/configs && chown -R 0:0 /app/server"]
+        volumeMounts:
+          - mountPath: /app/configs
+            name: tdarr-config
+          - mountPath: /app/server
+            name: tdarr-server
+      containers:
+      - name: tdarr
+        image: haveagitgat/tdarr:latest
+        env:
+          - name: PUID
+            value: "0"
+          - name: PGID
+            value: "0"
+          - name: internalNode
+            value: "true"
+          - name: nodeID
+            value: "internal"
+        ports:
+          - name: tdarr-ui
+            containerPort: 8265
+          - name: tdarr-server
+            containerPort: 8266
+        volumeMounts:
+          - mountPath: /app/configs
+            name: tdarr-config
+          - mountPath: /app/server
+            name: tdarr-server
+          - mountPath: /app/logs
+            name: tdarr-logs
+          - mountPath: /movies
+            name: tdarr-movies-nfs
+          - mountPath: /shows
+            name: tdarr-shows-nfs
+      volumes:
+        - name: tdarr-config
+          persistentVolumeClaim:
+            claimName:  tdarr-config-claim
+        - name: tdarr-server
+          persistentVolumeClaim:
+            claimName:  tdarr-server-claim
+        - name: tdarr-logs
+          emptyDir: {}
+        - name: tdarr-cache
+          emptyDir: {}
+        - name: tdarr-movies-nfs
+          nfs:
+            server: 192.168.69.0
+            path: /volume1/NAS/MediaLibrary/Movies
+            readOnly: false
+        - name: tdarr-shows-nfs
+          nfs:
+            server: 192.168.69.0
+            path: /volume1/NAS/MediaLibrary/Shows
+            readOnly: false
