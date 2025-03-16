@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: rundeck
+ namespace: services
+ labels:
+   env: dev
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 4440
+ selector:
+   env: dev

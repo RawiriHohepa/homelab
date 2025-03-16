@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: rundeck
+ namespace: services
+ labels:
+   env: dev
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     env: dev
+ template:
+   metadata:
+     labels:
+       env: dev
+   spec:
+     containers:
+     - name: rundeck
+       image: rundeck/rundeck:4.8.0
+       env:
+       - name: RUNDECK_GRAILS_URL
+         value: "https://rundeck.local.hohepa.dev"
+       ports:
+       - containerPort: 4440
