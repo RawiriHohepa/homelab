@@ -1,0 +1,11 @@
+machine:
+  network:
+    nameservers:
+      - 192.168.68.68
+    interfaces:
+      - interface: ens18
+        routes:
+            - network: 0.0.0.0/0
+              gateway: 192.168.68.1
+        vip:
+          ip: 192.168.70.1
