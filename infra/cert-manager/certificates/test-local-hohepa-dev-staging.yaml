@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-local-hohepa-dev
+  namespace: default # same namespace as ingress service
+spec:
+  secretName: test-local-hohepa-dev-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: "*.test.local.hohepa.dev"
+  dnsNames:
+  - "test.local.hohepa.dev"
+  - "*.test.local.hohepa.dev"

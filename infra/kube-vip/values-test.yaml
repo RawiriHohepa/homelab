@@ -1,0 +1,5 @@
+config:
+  address: 192.168.70.100
+
+env:
+  vip_interface: ens18

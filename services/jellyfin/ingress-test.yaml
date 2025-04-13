@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jellyfin-ingress
+  namespace: services
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jellyfin.test.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: jellyfin
+          port: 8096
+  tls:
+    secretName: test-local-hohepa-dev-tls
