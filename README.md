@@ -13,6 +13,8 @@ kubectl taint nodes tawhirimatea node-role.kubernetes.io/control-plane:NoSchedul
 
 cd ../../infra/
 
+helmfile apply -f metrics-server/helmfile.yaml
+
 kubectl apply -f kube-vip/namespace.yaml
 helmfile apply -f kube-vip/helmfile.yaml # or helmfile-test.yaml
 
