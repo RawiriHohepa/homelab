@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rundeck-mysql
+  namespace: services
+  labels:
+    app: rundeck-mysql
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rundeck-mysql
+  template:
+    metadata:
+      labels:
+        app: rundeck-mysql
+    spec:
+      containers:
+      - image: mysql:5.7
+        args:
+        - "--ignore-db-dir=lost+found"
+        name: rundeck-mysql
+        env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: mysql-password
+        - name: "MYSQL_DATABASE"
+          value: rundeckdb
+        - name: "MYSQL_USER"
+          value: rundeck
+        - name: "MYSQL_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: mysql-password
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: rundeck-mysql-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: rundeck-mysql-storage
+        persistentVolumeClaim:
+          claimName: rundeck-mysql-storage-claim

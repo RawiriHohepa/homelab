@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rundeck-minio
+  namespace: services
+  labels:
+    app: rundeck-minio
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rundeck-minio
+  template:
+    metadata:
+      labels:
+        app: rundeck-minio
+    spec:
+      volumes:
+      - name: rundeck-minio-storage
+        persistentVolumeClaim:
+          claimName: rundeck-minio-storage-claim
+      containers:
+      - name: rundeck-minio
+        image: minio/minio:latest
+        args:
+        - server
+        - /data
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: minio-access-key
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: minio-secret-key
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: rundeck-minio-storage
+          mountPath: "/data"
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rundeck-minio-create-bucket
+  namespace: services
+spec:
+  completions: 1
+  template:
+    metadata:
+      name: rundeck-minio-create-bucket
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: rundeck-minio-bucket
+        image: minio/mc
+        env:
+        - name: MINIO_URL
+          value: "http://rundeck-minio.services.svc.cluster.local:9000"
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: minio-access-key
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rundeck-secrets
+              key: minio-secret-key
+        - name: MINIO_BUCKET
+          value: "rundeck"
+        command: ["/bin/sh","-c","sleep 30 && mc config host add miniorundeck $MINIO_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY  && mc mb miniorundeck/$MINIO_BUCKET --ignore-existing"]

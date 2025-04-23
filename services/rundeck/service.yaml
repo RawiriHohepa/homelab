@@ -1,13 +1,40 @@
 apiVersion: v1
 kind: Service
 metadata:
- name: rundeck
- namespace: services
- labels:
-   env: dev
+  name: rundeck
+  namespace: services
 spec:
- type: LoadBalancer
- ports:
- - port: 4440
- selector:
-   env: dev
+  selector:
+    app: rundeck
+  ports:
+    - protocol: TCP
+      port: 4440
+      targetPort: 4440
+
+---      
+apiVersion: v1
+kind: Service
+metadata:
+  name: rundeck-minio
+  namespace: services
+spec:
+  selector:
+    app: rundeck-minio
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rundeck-mysql
+  namespace: services
+spec:
+  selector:
+    app: rundeck-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP

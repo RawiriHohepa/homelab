@@ -1,0 +1,62 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rundeck-minio-storage-volume
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 5Gi
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: rundeck-minio-storage-volume
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rundeck-minio-storage-claim
+  namespace: services
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: rundeck-minio-storage-volume
+  storageClassName: "longhorn"
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rundeck-mysql-storage-volume
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 5Gi
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: rundeck-mysql-storage-volume
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rundeck-mysql-storage-claim
+  namespace: services
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: rundeck-mysql-storage-volume
+  storageClassName: "longhorn"

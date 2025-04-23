@@ -42,10 +42,13 @@ helmfile apply -f longhorn/helmfile.yaml
 kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # restore volumes from backup or create manually
 # prod:
-# - calibre-web-config-volume   5Gi
-# - heimdall-config-volume      1Gi
-# - jellyfin-config-volume      5Gi
-# - jellyfin-media-volume       5Gi
+# - calibre-web-config-volume       5Gi
+# - heimdall-config-volume          1Gi
+# - jellyfin-config-volume          5Gi
+# - jellyfin-media-volume           5Gi
+# - uptime-kuma-data-volume         1Gi
+# - rundeck-minio-storage-volume    5Gi
+# - rundeck-mysql-storage-volume    5Gi
 
 cd ../services/
 kubectl apply -f namespace.yaml
@@ -67,4 +70,14 @@ helmfile apply -f heimdall/helmfile.yaml
 kubectl apply -f jellyfin/claim.yaml
 kubectl apply -f jellyfin/ingress.yaml # or ingress-test.yaml
 helmfile apply -f jellyfin/helmfile.yaml
+
+kubectl create secret generic rundeck-admin-acl  -n services --from-file=rundeck/admin-role.aclpolicy
+# populate secrets.yaml with desired passwords
+kubectl apply -f rundeck/secrets.yaml
+kubectl apply -f rundeck/claim.yaml
+kubectl apply -f rundeck/service.yaml
+kubectl apply -f rundeck/deployment-minio.yaml
+kubectl apply -f rundeck/deployment-mysql.yaml
+kubectl apply -f rundeck/deployment-rundeck.yaml # or deployment-rundeck-test.yaml
+kubectl apply -f rundeck/ingress.yaml # or ingress-test.yaml
 ```
