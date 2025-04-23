@@ -4,7 +4,7 @@ metadata:
   name: heimdall-config-volume
 spec:
   capacity:
-    storage: 100Mi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -26,5 +26,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 100Mi
+      storage: 1Gi
   volumeName: heimdall-config-volume

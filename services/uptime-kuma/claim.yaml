@@ -4,7 +4,7 @@ metadata:
   name: uptime-kuma-data-volume
 spec:
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -26,5 +26,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
   volumeName: uptime-kuma-data-volume

@@ -51,6 +51,12 @@ cd ../services/
 kubectl apply -f namespace.yaml
 
 kubectl apply -f external/
+
+kubectl apply -f uptime-kuma/claim.yaml
+kubectl apply -f uptime-kuma/deployment.yaml
+kubectl apply -f uptime-kuma/service.yaml
+kubectl apply -f uptime-kuma/ingress.yaml # or ingress-test.yaml
+
 kubectl apply -f calibre-web/
 kubectl apply -f calibre-web/ingress.yaml # or ingress-test.yaml
 
