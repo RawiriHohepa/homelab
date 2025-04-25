@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - name: radarr
+        image: linuxserver/radarr
+        ports:
+        - containerPort: 7878
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        volumeMounts:
+        - mountPath: /config
+          name: radarr-config
+        - mountPath: /media-library
+          name: radarr-media-library-nfs
+      volumes:
+      - name: radarr-config
+        persistentVolumeClaim:
+          claimName:  radarr-config-claim
+      - name: radarr-media-library-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary
+          readOnly: false

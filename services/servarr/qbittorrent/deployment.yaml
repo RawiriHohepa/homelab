@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      containers:
+      - name: qbittorrent
+        image: linuxserver/qbittorrent
+        ports:
+        - containerPort: 8080
+        - containerPort: 6881
+          protocol: TCP
+        - containerPort: 6881
+          protocol: UDP
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        - name: WEBUI_PORT
+          value: "8080"
+        - name: TORRENTING_PORT
+          value: "6881"
+        volumeMounts:
+        - mountPath: /config
+          name: qbittorrent-config
+        - mountPath: /downloads
+          name: qbittorrent-downloads-nfs
+      volumes:
+      - name: qbittorrent-config
+        persistentVolumeClaim:
+          claimName:  qbittorrent-config-claim
+      - name: qbittorrent-downloads-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary/Downloads
+          readOnly: false

@@ -49,6 +49,11 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - uptime-kuma-data-volume         1Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
+# - qbittorrent-config-volume       512Mi
+# - radarr-config-volume            1Gi
+# - sonarr-config-volume            1Gi
+# - prowlarr-config-volume          512Mi
+# - bazarr-config-volume            512Mi
 
 cd ../services/
 kubectl apply -f namespace.yaml
@@ -80,4 +85,29 @@ kubectl apply -f rundeck/deployment-minio.yaml
 kubectl apply -f rundeck/deployment-mysql.yaml
 kubectl apply -f rundeck/deployment-rundeck.yaml # or deployment-rundeck-test.yaml
 kubectl apply -f rundeck/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f servarr/qbittorrent/claim.yaml
+kubectl apply -f servarr/qbittorrent/deployment.yaml
+kubectl apply -f servarr/qbittorrent/service.yaml
+kubectl apply -f servarr/qbittorrent/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f servarr/radarr/claim.yaml
+kubectl apply -f servarr/radarr/deployment.yaml
+kubectl apply -f servarr/radarr/service.yaml
+kubectl apply -f servarr/radarr/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f servarr/sonarr/claim.yaml
+kubectl apply -f servarr/sonarr/deployment.yaml
+kubectl apply -f servarr/sonarr/service.yaml
+kubectl apply -f servarr/sonarr/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f servarr/prowlarr/claim.yaml
+kubectl apply -f servarr/prowlarr/deployment.yaml
+kubectl apply -f servarr/prowlarr/service.yaml
+kubectl apply -f servarr/prowlarr/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f servarr/bazarr/claim.yaml
+kubectl apply -f servarr/bazarr/deployment.yaml
+kubectl apply -f servarr/bazarr/service.yaml
+kubectl apply -f servarr/bazarr/ingress.yaml # or ingress-test.yaml
 ```

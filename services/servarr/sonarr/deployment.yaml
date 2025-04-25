@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        ports:
+        - containerPort: 8989
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        volumeMounts:
+        - mountPath: /config
+          name: sonarr-config
+        - mountPath: /media-library
+          name: sonarr-media-library-nfs
+      volumes:
+      - name: sonarr-config
+        persistentVolumeClaim:
+          claimName:  sonarr-config-claim
+      - name: sonarr-media-library-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary
+          readOnly: false

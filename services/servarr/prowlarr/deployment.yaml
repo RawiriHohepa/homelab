@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+      - name: prowlarr
+        image: linuxserver/prowlarr
+        ports:
+        - containerPort: 9696
+        # - containerPort: 6881
+        #   protocol: TCP
+        # - containerPort: 6881
+        #   protocol: UDP
+        env:
+        - name: TZ
+          value: NZ
+        # - name: PUID
+        #   value: "114670"
+        # - name: PGID
+        #   value: "104555"
+        # - name: WEBUI_PORT
+        #   value: "8080"
+        # - name: TORRENTING_PORT
+        #   value: "6881"
+        volumeMounts:
+        - mountPath: /config
+          name: prowlarr-config
+        # - mountPath: /downloads
+        #   name: qbittorrent-downloads-nfs
+      - name: flaresolverr
+        image: flaresolverr/flaresolverr
+        ports:
+        - containerPort: 8191
+      volumes:
+      - name: prowlarr-config
+        persistentVolumeClaim:
+          claimName:  prowlarr-config-claim
+      # - name: qbittorrent-downloads-nfs
+      #   nfs:
+      #     server: 192.168.69.0
+      #     path: /volume1/NAS/MediaLibrary/Downloads
+      #     readOnly: false

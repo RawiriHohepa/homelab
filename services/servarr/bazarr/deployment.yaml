@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: linuxserver/bazarr
+        ports:
+        - containerPort: 6767
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        volumeMounts:
+        - mountPath: /config
+          name: bazarr-config
+        - mountPath: /media-library
+          name: bazarr-media-library-nfs
+      volumes:
+      - name: bazarr-config
+        persistentVolumeClaim:
+          claimName:  bazarr-config-claim
+      - name: bazarr-media-library-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary
+          readOnly: false

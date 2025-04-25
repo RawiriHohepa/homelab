@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr-ingress
+  namespace: services
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`radarr.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: radarr
+          port: 7878
+  tls:
+    secretName: local-hohepa-dev-tls

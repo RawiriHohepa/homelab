@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: qbittorrent-ingress
+  namespace: services
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`qbittorrent.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: qbittorrent
+          port: 8080
+  tls:
+    secretName: local-hohepa-dev-tls
