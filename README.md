@@ -37,6 +37,12 @@ kubectl apply -f ../services/nginx/ingress.yaml # or ingress-test.yaml
 # wait until nginx uses the production cert
 # kubectl delete -f ../services/nginx/
 
+# create tailscale oauth client - https://tailscale.com/kb/1236/kubernetes-operator#prerequisites
+# populate oauth.clientId and oauth.clientSecret in tailscale/values.yaml
+kubectl apply -f tailscale/namespace.yaml
+helmfile apply -f tailscale/helmfile.yaml # or helmfile-test.yaml
+kubectl apply -f tailscale/connector.yaml # or connector-test.yaml
+
 kubectl apply -f longhorn/namespace.yaml
 helmfile apply -f longhorn/helmfile.yaml
 kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
