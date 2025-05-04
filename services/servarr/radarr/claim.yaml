@@ -4,10 +4,10 @@ metadata:
   name: radarr-config-volume
 spec:
   capacity:
-    storage: 1Gi
+    storage: 2Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Delete
   storageClassName: longhorn
   csi:
@@ -22,9 +22,9 @@ metadata:
   namespace: services
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: longhorn
   resources:
     requests:
-      storage: 1Gi
+      storage: 2Gi
   volumeName: radarr-config-volume

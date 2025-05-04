@@ -56,8 +56,8 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
 # - qbittorrent-config-volume       512Mi
-# - radarr-config-volume            1Gi
-# - sonarr-config-volume            1Gi
+# - radarr-config-volume            2Gi
+# - sonarr-config-volume            2Gi
 # - prowlarr-config-volume          512Mi
 # - bazarr-config-volume            512Mi
 
@@ -71,7 +71,9 @@ kubectl apply -f uptime-kuma/deployment.yaml
 kubectl apply -f uptime-kuma/service.yaml
 kubectl apply -f uptime-kuma/ingress.yaml # or ingress-test.yaml
 
-kubectl apply -f calibre-web/
+kubectl apply -f calibre-web/claim.yaml
+kubectl apply -f calibre-web/deployment.yaml
+kubectl apply -f calibre-web/service.yaml
 kubectl apply -f calibre-web/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f heimdall/claim.yaml
