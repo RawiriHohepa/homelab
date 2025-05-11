@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audiobookshelf
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audiobookshelf
+  template:
+    metadata:
+      labels:
+        app: audiobookshelf
+    spec:
+      containers:
+      - name: audiobookshelf
+        image: advplyr/audiobookshelf
+        ports:
+        - containerPort: 80
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        volumeMounts:
+        - mountPath: /config
+          name: audiobookshelf-config
+        - mountPath: /metadata
+          name: audiobookshelf-metadata
+        - mountPath: /media-library
+          name: audiobookshelf-media-library-nfs
+      volumes:
+      - name: audiobookshelf-config
+        persistentVolumeClaim:
+          claimName:  audiobookshelf-config-claim
+      - name: audiobookshelf-metadata
+        persistentVolumeClaim:
+          claimName:  audiobookshelf-metadata-claim
+      - name: audiobookshelf-media-library-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary
+          readOnly: true

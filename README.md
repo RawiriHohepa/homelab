@@ -58,8 +58,11 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - qbittorrent-config-volume       512Mi
 # - radarr-config-volume            2Gi
 # - sonarr-config-volume            2Gi
+# - readarr-config-volume           2Gi
 # - prowlarr-config-volume          512Mi
 # - bazarr-config-volume            512Mi
+# - audiobookshelf-config-volume    512Mi
+# - audiobookshelf-metadata-volume  512Mi
 
 cd ../services/
 kubectl apply -f namespace.yaml
@@ -109,6 +112,11 @@ kubectl apply -f servarr/sonarr/deployment.yaml
 kubectl apply -f servarr/sonarr/service.yaml
 kubectl apply -f servarr/sonarr/ingress.yaml # or ingress-test.yaml
 
+kubectl apply -f servarr/readarr/claim.yaml
+kubectl apply -f servarr/readarr/deployment.yaml
+kubectl apply -f servarr/readarr/service.yaml
+kubectl apply -f servarr/readarr/ingress.yaml # or ingress-test.yaml
+
 kubectl apply -f servarr/prowlarr/claim.yaml
 kubectl apply -f servarr/prowlarr/deployment.yaml
 kubectl apply -f servarr/prowlarr/service.yaml
@@ -118,4 +126,9 @@ kubectl apply -f servarr/bazarr/claim.yaml
 kubectl apply -f servarr/bazarr/deployment.yaml
 kubectl apply -f servarr/bazarr/service.yaml
 kubectl apply -f servarr/bazarr/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f audiobookshelf/claim.yaml
+kubectl apply -f audiobookshelf/deployment.yaml
+kubectl apply -f audiobookshelf/service.yaml
+kubectl apply -f audiobookshelf/ingress.yaml # or ingress-test.yaml
 ```

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readarr
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readarr
+  template:
+    metadata:
+      labels:
+        app: readarr
+    spec:
+      containers:
+      - name: readarr
+        image: linuxserver/readarr:develop
+        ports:
+        - containerPort: 8787
+        env:
+        - name: TZ
+          value: NZ
+        - name: PUID
+          value: "114670"
+        - name: PGID
+          value: "104555"
+        volumeMounts:
+        - mountPath: /config
+          name: readarr-config
+        - mountPath: /media-library
+          name: readarr-media-library-nfs
+      volumes:
+      - name: readarr-config
+        persistentVolumeClaim:
+          claimName:  readarr-config-claim
+      - name: readarr-media-library-nfs
+        nfs:
+          server: 192.168.69.0
+          path: /volume1/NAS/MediaLibrary
+          readOnly: false
