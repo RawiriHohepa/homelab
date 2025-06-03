@@ -4,7 +4,7 @@ metadata:
   name: radarr-config-volume
 spec:
   capacity:
-    storage: 2Gi
+    storage: 5Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -26,5 +26,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 2Gi
+      storage: 5Gi
   volumeName: radarr-config-volume

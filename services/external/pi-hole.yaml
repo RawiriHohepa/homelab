@@ -28,4 +28,4 @@ spec:
   ports:
   - name: http
     port: 80
-  externalName: 192.168.68.68
+  externalName: 192.168.0.68

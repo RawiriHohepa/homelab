@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: huawei-admin
+  name: unifi
   namespace: services
   annotations: 
     kubernetes.io/ingress.class: traefik-external
@@ -9,11 +9,11 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`huawei-admin.local.hohepa.dev`)
+    - match: Host(`unifi.local.hohepa.dev`)
       kind: Rule
       services:
-        - name: huawei-admin
-          port: 80
+        - name: unifi
+          port: 443
   tls:
     secretName: local-hohepa-dev-tls
 
@@ -21,11 +21,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: huawei-admin
+  name: unifi
   namespace: services
 spec:
   type: ExternalName
   ports:
-  - name: http
-    port: 80
-  externalName: 192.168.1.1
+  - name: https
+    port: 443
+  externalName: 192.168.0.1
