@@ -50,17 +50,17 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # prod:
 # - calibre-web-config-volume       5Gi
 # - heimdall-config-volume          1Gi
-# - jellyfin-config-volume          5Gi
+# - jellyfin-config-volume          10Gi
 # - jellyfin-media-volume           5Gi
-# - uptime-kuma-data-volume         1Gi
+# - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
-# - qbittorrent-config-volume       512Mi
-# - radarr-config-volume            2Gi
-# - sonarr-config-volume            2Gi
-# - readarr-config-volume           2Gi
-# - prowlarr-config-volume          512Mi
-# - bazarr-config-volume            512Mi
+# - qbittorrent-config-volume       1Gi
+# - radarr-config-volume            10Gi
+# - sonarr-config-volume            10Gi
+# - readarr-config-volume           10Gi
+# - prowlarr-config-volume          5Gi
+# - bazarr-config-volume            1Gi
 # - audiobookshelf-config-volume    512Mi
 # - audiobookshelf-metadata-volume  512Mi
 

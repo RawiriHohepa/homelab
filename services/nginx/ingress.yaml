@@ -15,4 +15,5 @@ spec:
         - name: nginx
           port: 80
   tls:
+    # secretName: local-hohepa-dev-staging-tls
     secretName: local-hohepa-dev-tls
