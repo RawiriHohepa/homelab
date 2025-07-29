@@ -79,6 +79,8 @@ spec:
               key: storage-converter-password
         - name: RUNDECK_PLUGIN_CLUSTER_REMOTEEXECUTION_ENABLED
           value: "false"
+        - name: RUNDECK_API_TOKENS_DURATION_MAX
+          value: "0"
         ports:
         - containerPort: 4440
         livenessProbe:
