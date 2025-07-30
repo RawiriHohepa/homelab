@@ -34,7 +34,7 @@ spec:
   - name: http
     port: 5000
     targetPort: 5000
-  externalName: 192.168.69.0
+  externalName: 192.168.50.50
 
 ---
 apiVersion: v1
@@ -48,4 +48,4 @@ spec:
   - name: http
     port: 8384
     targetPort: 8384
-  externalName: 192.168.69.0
+  externalName: 192.168.50.50

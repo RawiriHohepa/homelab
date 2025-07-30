@@ -3,7 +3,7 @@ replicaCount: 1
 volumes:
   - name: jellyfin-media-library-nfs
     nfs:
-      server: 192.168.69.0
+      server: 192.168.50.50
       path: /volume1/NAS/MediaLibrary
       readOnly: true
 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: readarr
-        image: linuxserver/readarr:develop
+        image: linuxserver/readarr:amd64-0.4.18-develop
         ports:
         - containerPort: 8787
         env:
@@ -36,6 +36,6 @@ spec:
           claimName:  readarr-config-claim
       - name: readarr-media-library-nfs
         nfs:
-          server: 192.168.69.0
+          server: 192.168.50.50
           path: /volume1/NAS/MediaLibrary
           readOnly: false

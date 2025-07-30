@@ -48,8 +48,8 @@ helmfile apply -f longhorn/helmfile.yaml
 kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # restore volumes from backup or create manually
 # prod:
-# - calibre-web-config-volume       5Gi
 # - heimdall-config-volume          1Gi
+# - calibre-web-config-volume       5Gi
 # - jellyfin-config-volume          10Gi
 # - jellyfin-media-volume           5Gi
 # - uptime-kuma-data-volume         5Gi
@@ -69,6 +69,10 @@ kubectl apply -f namespace.yaml
 
 kubectl apply -f external/
 
+kubectl apply -f heimdall/claim.yaml
+kubectl apply -f heimdall/ingress.yaml # or ingress-test.yaml
+helmfile apply -f heimdall/helmfile.yaml
+
 kubectl apply -f uptime-kuma/claim.yaml
 kubectl apply -f uptime-kuma/deployment.yaml
 kubectl apply -f uptime-kuma/service.yaml
@@ -78,10 +82,6 @@ kubectl apply -f calibre-web/claim.yaml
 kubectl apply -f calibre-web/deployment.yaml
 kubectl apply -f calibre-web/service.yaml
 kubectl apply -f calibre-web/ingress.yaml # or ingress-test.yaml
-
-kubectl apply -f heimdall/claim.yaml
-kubectl apply -f heimdall/ingress.yaml # or ingress-test.yaml
-helmfile apply -f heimdall/helmfile.yaml
 
 kubectl apply -f jellyfin/claim.yaml
 kubectl apply -f jellyfin/ingress.yaml # or ingress-test.yaml

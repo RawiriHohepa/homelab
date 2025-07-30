@@ -1,9 +1,9 @@
 INSTALL_IMAGE=factory.talos.dev/installer/dc7b152cb3ea99b821fcb7340ce7168313ce393d663740b791c36f6e95fc8586:v1.9.5 # Bare-metal, amd64, siderolabs/qemu-guest-agent, siderolabs/iscsi-tools
 CLUSTER_NAME=talos-prod
-CLUSTER_ENDPOINT=192.168.70.1 # should match the virtual ip in patches/network.patch
-TANE_MAHUTA=192.168.70.11
-TANGAROA=192.168.70.21
-TAWHIRIMATEA=192.168.70.31
+CLUSTER_ENDPOINT=192.168.50.20 # should match the virtual ip in patches/network.patch
+TANE_MAHUTA=192.168.50.21
+TANGAROA=192.168.50.22
+TAWHIRIMATEA=192.168.50.23
 
 # Generate base config
 talosctl gen secrets -o secrets.yaml # make a backup

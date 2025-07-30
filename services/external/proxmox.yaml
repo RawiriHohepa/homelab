@@ -60,7 +60,7 @@ metadata:
   namespace: services
 subsets:
   - addresses:
-      - ip: 192.168.70.10
+      - ip: 192.168.50.11
     ports:
       - name: http
         port: 8006
@@ -85,7 +85,7 @@ metadata:
   namespace: services
 subsets:
   - addresses:
-      - ip: 192.168.70.20
+      - ip: 192.168.50.12
     ports:
       - name: http
         port: 8006
@@ -110,7 +110,7 @@ metadata:
   namespace: services
 subsets:
   - addresses:
-      - ip: 192.168.70.30
+      - ip: 192.168.50.13
     ports:
       - name: http
         port: 8006
