@@ -131,4 +131,9 @@ kubectl apply -f audiobookshelf/claim.yaml
 kubectl apply -f audiobookshelf/deployment.yaml
 kubectl apply -f audiobookshelf/service.yaml
 kubectl apply -f audiobookshelf/ingress.yaml # or ingress-test.yaml
+
+./sponsor-block-tv/generate-config.sh # if needed
+# copy config.json into config.yaml
+kubectl apply -f sponsor-block-tv/config.yaml
+kubectl apply -f sponsor-block-tv/deployment.yaml
 ```

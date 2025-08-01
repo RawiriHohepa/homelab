@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sponsor-block-tv
+  namespace: services
+spec:
+  selector:
+    matchLabels:
+      app: sponsor-block-tv
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sponsor-block-tv
+    spec:
+      containers:
+      - name: sponsor-block-tv
+        image: dmunozv04/isponsorblocktv:v2.5.3
+        volumeMounts:
+        - name: sponsor-block-tv-config
+          mountPath: /app/data/config.json
+          subPath: config.json
+      volumes:
+        - name: sponsor-block-tv-config
+          configMap:
+            name: sponsor-block-tv-config

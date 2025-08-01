@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sponsor-block-tv-config
+  namespace: services
+data:
+  config.json: |
+    {
+        "devices": [],
+        "apikey": "",
+        "skip_categories": [],
+        "channel_whitelist": [],
+        "skip_count_tracking": true,
+        "mute_ads": false,
+        "skip_ads": false,
+        "minimum_skip_length": 1,
+        "auto_play": true,
+        "join_name": "iSponsorBlockTV"
+    }
