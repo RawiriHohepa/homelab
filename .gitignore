@@ -3,3 +3,5 @@ talos/**/worker.yaml
 talos/**/talosconfig
 talos/**/kubeconfig
 talos/**/secrets.yaml
+
+docker/**/*.env
