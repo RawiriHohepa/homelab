@@ -5,7 +5,7 @@ services:
     networks:
       - proxy
     ports:
-      - 3000:3000
+      - 3000
     environment:
       HOMEPAGE_ALLOWED_HOSTS: homepage.${SUBDOMAIN}local.hohepa.dev
     volumes:
@@ -15,7 +15,6 @@ services:
       - "traefik.http.routers.homepage.rule=Host(`homepage.${SUBDOMAIN}local.hohepa.dev`)"
       - "traefik.http.routers.homepage.entrypoints=https"
       - "traefik.http.routers.homepage.tls=true"
-      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
 
 networks:
   proxy:
