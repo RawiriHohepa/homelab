@@ -1,0 +1,141 @@
+http:
+  routers:
+    tane-mahuta:
+      entryPoints:
+        - https
+      rule: Host(`tane-mahuta.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: tane-mahuta
+    tangaroa:
+      entryPoints:
+        - https
+      rule: Host(`tangaroa.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: tangaroa
+    tawhirimatea:
+      entryPoints:
+        - https
+      rule: Host(`tawhirimatea.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: tawhirimatea
+
+    synology:
+      entryPoints:
+        - https
+      rule: Host(`synology.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: synology
+    synology-syncthing:
+      entryPoints:
+        - https
+      rule: Host(`synology-syncthing.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: synology-syncthing
+
+    unifi:
+      entryPoints:
+        - https
+      rule: Host(`unifi.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: unifi
+
+    uptime-pi:
+      entryPoints:
+        - https
+      rule: Host(`uptime-pi.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: uptime-pi
+
+
+  services:
+    tane-mahuta:
+      loadBalancer:
+        servers:
+          - url: https://192.168.50.11:8006
+        passHostHeader: true
+    tangaroa:
+      loadBalancer:
+        servers:
+          - url: https://192.168.50.12:8006
+        passHostHeader: true
+    tawhirimatea:
+      loadBalancer:
+        servers:
+          - url: https://192.168.50.13:8006
+        passHostHeader: true
+
+    synology:
+      loadBalancer:
+        servers:
+          - url: http://192.168.50.50:5000
+        passHostHeader: true
+    synology-syncthing:
+      loadBalancer:
+        servers:
+          - url: https://192.168.50.50:8384
+        passHostHeader: true
+
+    unifi:
+      loadBalancer:
+        servers:
+          - url: https://192.168.0.1:443
+        passHostHeader: true
+
+    uptime-pi:
+      loadBalancer:
+        servers:
+          - url: http://192.168.50.51:3001
+        passHostHeader: true
+
+
+  middlewares:
+    https-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    default-whitelist:
+      ipAllowList:
+        sourceRange:
+        - 10.0.0.0/8
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers
