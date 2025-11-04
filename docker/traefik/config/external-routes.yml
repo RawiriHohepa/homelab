@@ -57,15 +57,24 @@ http:
       tls: {}
       service: unifi
 
-    uptime-pi:
+    pi-uptime:
       entryPoints:
         - https
-      rule: Host(`uptime-pi.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      rule: Host(`uptime.pi.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
       middlewares:
         - default-headers
         - https-redirectscheme
       tls: {}
-      service: uptime-pi
+      service: pi-uptime
+    pi-syncthing:
+      entryPoints:
+        - https
+      rule: Host(`syncthing.pi.{{ env "SUBDOMAIN" }}local.hohepa.dev`)
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: pi-syncthing
 
 
   services:
@@ -102,10 +111,15 @@ http:
           - url: https://192.168.0.1:443
         passHostHeader: true
 
-    uptime-pi:
+    pi-uptime:
       loadBalancer:
         servers:
           - url: http://192.168.50.51:3001
+        passHostHeader: true
+    pi-syncthing:
+      loadBalancer:
+        servers:
+          - url: http://192.168.50.51:8384
         passHostHeader: true
 
 
