@@ -8,6 +8,9 @@ services:
       - 3000
     environment:
       HOMEPAGE_ALLOWED_HOSTS: homepage.${SUBDOMAIN}local.hohepa.dev
+      TZ: NZ
+      PUID: 1000
+      PGID: 1000
     volumes:
       - ./config:/app/config
     labels:

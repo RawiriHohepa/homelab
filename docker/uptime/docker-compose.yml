@@ -8,6 +8,8 @@ services:
       - 3001
     environment:
       TZ: NZ
+      PUID: 1000
+      PGID: 1000
     volumes:
       - ./data:/app/data
     labels:
