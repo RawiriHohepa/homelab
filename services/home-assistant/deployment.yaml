@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-assistant
+  namespace: services
+  labels:
+    app: home-assistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-assistant
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "multus-network",
+            "namespace": "default",
+            "mac": "bc:24:11:e6:1b:4b",
+            "ips": ["192.168.50.24/24"]
+          }]
+    spec:
+      containers:
+        - name: home-assistant
+          image: "ghcr.io/home-assistant/home-assistant:stable"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 8123
+          volumeMounts:
+            - name: home-assistant-config
+              mountPath: /config
+            - name: home-assistant-config-yaml
+              mountPath: /config/configuration.yaml
+              subPath: configuration.yaml
+            - mountPath: /etc/localtime
+              name: home-assistant-time
+              readOnly: true
+      volumes:
+        - name: home-assistant-config
+          persistentVolumeClaim:
+            claimName: home-assistant-config-claim
+        - name: home-assistant-config-yaml
+          configMap:
+            name: home-assistant-config-yaml
+        - name: home-assistant-time
+          persistentVolumeClaim:
+            claimName: home-assistant-time-claim

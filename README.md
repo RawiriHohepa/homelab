@@ -3,20 +3,22 @@
 ## Deployment process
 Commented lines are actions to take outside of terminal
 ```bash
-cd talos/prod/ # or talos/test/
-# uncomment lines for first run
-./setup.sh
-# wait for nodes to be ready
-kubectl taint nodes tane-mahuta node-role.kubernetes.io/control-plane:NoSchedule-
-kubectl taint nodes tangaroa node-role.kubernetes.io/control-plane:NoSchedule-
-kubectl taint nodes tawhirimatea node-role.kubernetes.io/control-plane:NoSchedule-
+# cd talos/prod/ # or talos/test/
+# # uncomment lines for first run
+# ./setup.sh
+# # wait for nodes to be ready
+# kubectl taint nodes tane-mahuta node-role.kubernetes.io/control-plane:NoSchedule-
+# kubectl taint nodes tangaroa node-role.kubernetes.io/control-plane:NoSchedule-
+# kubectl taint nodes tawhirimatea node-role.kubernetes.io/control-plane:NoSchedule-
 
-cd ../../infra/
+# cd ../../infra/
 
-helmfile apply -f metrics-server/helmfile.yaml
+# helmfile apply -f metrics-server/helmfile.yaml
 
-kubectl apply -f kube-vip/namespace.yaml
-helmfile apply -f kube-vip/helmfile.yaml # or helmfile-test.yaml
+# kubectl apply -f kube-vip/namespace.yaml
+# helmfile apply -f kube-vip/helmfile.yaml # or helmfile-test.yaml
+
+cd infra/
 
 helmfile apply -f traefik/helmfile.yaml # or helmfile-test.yaml
 kubectl apply -f traefik/dashboard/ingress.yaml # or ingress-test.yaml
@@ -55,6 +57,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
+# - home-assistant-config-volume    512Mi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            10Gi
 # - sonarr-config-volume            10Gi
@@ -63,6 +66,13 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - bazarr-config-volume            1Gi
 # - audiobookshelf-config-volume    512Mi
 # - audiobookshelf-metadata-volume  512Mi
+
+helmfile apply -f multus/helmfile.yaml
+kubectl apply -f multus/network-attachment-definition.yaml
+# wait for multus & network-attachment-definition
+kubectl apply -f multus/sample-pod.yaml
+ping 192.168.50.200
+kubectl delete -f multus/sample-pod.yaml
 
 cd ../services/
 kubectl apply -f namespace.yaml
@@ -96,6 +106,17 @@ kubectl apply -f rundeck/deployment-minio.yaml
 kubectl apply -f rundeck/deployment-mysql.yaml
 kubectl apply -f rundeck/deployment-rundeck.yaml # or deployment-rundeck-test.yaml
 kubectl apply -f rundeck/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f home-assistant/claim.yaml
+kubectl apply -f home-assistant/configuration.yaml
+# If first time using volume, comment out home-assistant-config-yaml volume & mount
+kubectl apply -f home-assistant/deployment.yaml # or deployment-test.yaml
+kubectl apply -f home-assistant/service.yaml
+kubectl apply -f home-assistant/ingress.yaml # or ingress-test.yaml
+# If first time using volume:
+# - Complete setup at 192.168.50.(2|3)4:8123
+# - Uncomment home-assistant-config-yaml volume & mount
+# - Delete and recreate deployment or deployment-test
 
 kubectl apply -f servarr/qbittorrent/claim.yaml
 kubectl apply -f servarr/qbittorrent/deployment.yaml

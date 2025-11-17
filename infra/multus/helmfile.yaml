@@ -1,0 +1,11 @@
+repositories:
+- name: rke2-charts
+  url: https://rke2-charts.rancher.io
+
+releases:
+- name: multus
+  namespace: kube-system
+  chart: rke2-charts/rke2-multus
+  version: "4.2.300"
+  values:
+  - "./values.yaml"
