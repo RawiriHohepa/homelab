@@ -50,7 +50,6 @@ helmfile apply -f longhorn/helmfile.yaml
 kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # restore volumes from backup or create manually
 # prod:
-# - heimdall-config-volume          1Gi
 # - calibre-web-config-volume       5Gi
 # - jellyfin-config-volume          10Gi
 # - jellyfin-media-volume           5Gi

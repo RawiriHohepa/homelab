@@ -1,4 +1,0 @@
-persistence:
-  config:
-    enabled: true
-    existingClaim: heimdall-config-claim
