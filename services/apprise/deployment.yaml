@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apprise
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apprise
+  template:
+    metadata:
+      labels:
+        app: apprise
+    spec:
+      containers:
+      - name: apprise
+        image: caronc/apprise:1.2
+        ports:
+        - containerPort: 8000
+        env:
+        - name: APPRISE_STATEFUL_MODE
+          value: simple
+        - name: APPRISE_WORKER_COUNT
+          value: "1"
+        volumeMounts:
+        - mountPath: /config
+          name: apprise-config
+      volumes:
+      - name: apprise-config
+        persistentVolumeClaim:
+          claimName:  apprise-config-claim

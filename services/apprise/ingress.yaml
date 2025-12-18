@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: apprise-ingress
+  namespace: services
+  annotations: 
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`apprise.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: apprise
+          port: 8000
+  tls:
+    secretName: local-hohepa-dev-tls

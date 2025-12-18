@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: apprise-config-volume
+spec:
+  capacity:
+    storage: 512Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: apprise-config-volume
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: apprise-config-claim
+  namespace: services
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 512Mi
+  volumeName: apprise-config-volume

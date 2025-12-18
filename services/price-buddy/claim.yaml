@@ -36,7 +36,7 @@ metadata:
   name: price-buddy-database-volume
 spec:
   capacity:
-    storage: 512Mi
+    storage: 2Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -58,5 +58,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 512Mi
+      storage: 2Gi
   volumeName: price-buddy-database-volume
