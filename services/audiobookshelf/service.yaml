@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: audiobookshelf
+    app.kubernetes.io/name: audiobookshelf
   ports:
     - protocol: TCP
       port: 80

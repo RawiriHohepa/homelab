@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: prowlarr-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://prowlarr.test.local.hohepa.dev
+    gethomepage.dev/group: Servarr
+    gethomepage.dev/name: Prowlarr
+    gethomepage.dev/icon: prowlarr.png
+    gethomepage.dev/app: prowlarr
 spec:
   entryPoints:
     - websecure

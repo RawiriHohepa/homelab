@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: price-buddy
+      app.kubernetes.io/name: price-buddy
   replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: price-buddy
+        app.kubernetes.io/name: price-buddy
     spec:
       containers:
         - name: price-buddy

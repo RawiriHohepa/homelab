@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: bazarr-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://bazarr.local.hohepa.dev
+    gethomepage.dev/group: Servarr
+    gethomepage.dev/name: Bazarr
+    gethomepage.dev/icon: bazarr.png
+    gethomepage.dev/app: bazarr
 spec:
   entryPoints:
     - websecure

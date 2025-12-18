@@ -3,18 +3,16 @@ kind: Deployment
 metadata:
   name: rundeck-minio
   namespace: services
-  labels:
-    app: rundeck-minio
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: rundeck-minio
+      app.kubernetes.io/name: rundeck-minio
   template:
     metadata:
       labels:
-        app: rundeck-minio
+        app.kubernetes.io/name: rundeck-minio
     spec:
       volumes:
       - name: rundeck-minio-storage

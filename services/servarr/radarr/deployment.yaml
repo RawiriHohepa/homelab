@@ -7,15 +7,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: radarr
+      app.kubernetes.io/name: radarr
   template:
     metadata:
       labels:
-        app: radarr
+        app.kubernetes.io/name: radarr
     spec:
       containers:
       - name: radarr
-        image: linuxserver/radarr
+        image: linuxserver/radarr:6.0.4
         ports:
         - containerPort: 7878
         env:

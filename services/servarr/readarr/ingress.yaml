@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: readarr-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://readarr.local.hohepa.dev
+    gethomepage.dev/group: Servarr
+    gethomepage.dev/name: Readarr
+    gethomepage.dev/icon: readarr.png
+    gethomepage.dev/app: readarr
 spec:
   entryPoints:
     - websecure

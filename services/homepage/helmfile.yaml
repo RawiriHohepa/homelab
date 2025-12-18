@@ -6,5 +6,6 @@ releases:
 - name: homepage
   namespace: services
   chart: jameswynn/homepage
+  version: "2.1.0"
   values:
   - "./values.yaml"

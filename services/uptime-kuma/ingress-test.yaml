@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: uptime-kuma-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://uptime.test.local.hohepa.dev
+    gethomepage.dev/group: Services
+    gethomepage.dev/name: Uptime Kuma
+    gethomepage.dev/icon: uptime-kuma.png
+    gethomepage.dev/app: uptime-kuma
 spec:
   entryPoints:
     - websecure

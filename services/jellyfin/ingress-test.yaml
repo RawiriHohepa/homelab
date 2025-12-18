@@ -3,8 +3,23 @@ kind: IngressRoute
 metadata:
   name: jellyfin-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://jellyfin.test.local.hohepa.dev
+    gethomepage.dev/group: Services
+    gethomepage.dev/name: Jellyfin
+    gethomepage.dev/icon: jellyfin.png
+    gethomepage.dev/app: jellyfin
+    # gethomepage.dev/widget.type: jellyfin
+    # gethomepage.dev/widget.url: https://jellyfin.test.local.hohepa.dev
+    # gethomepage.dev/widget.key: apikeyapikeyapikeyapikeyapikey
+    # gethomepage.dev/widget.enableBlocks: "true"               # optional, defaults to false
+    # # gethomepage.dev/widget.enableNowPlaying: "false"          # optional, defaults to true
+    # # gethomepage.dev/widget.enableUser: "true"                 # optional, defaults to false
+    # gethomepage.dev/widget.enableMediaControl: "false"        # optional, defaults to true
+    # gethomepage.dev/widget.showEpisodeNumber: "true"          # optional, defaults to false
+    # # gethomepage.dev/widget.expandOneStreamToTwoRows: "false"  # optional, defaults to true
 spec:
   entryPoints:
     - websecure

@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: longhorn-dashboard
   namespace: longhorn
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://longhorn.test.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/icon: longhorn.png
+    gethomepage.dev/app: longhorn
 spec:
   entryPoints:
     - websecure

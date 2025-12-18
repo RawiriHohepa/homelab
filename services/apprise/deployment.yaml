@@ -7,11 +7,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apprise
+      app.kubernetes.io/name: apprise
   template:
     metadata:
       labels:
-        app: apprise
+        app.kubernetes.io/name: apprise
     spec:
       containers:
       - name: apprise

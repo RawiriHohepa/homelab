@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: home-assistant-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://home-assistant.local.hohepa.dev
+    gethomepage.dev/group: Services
+    gethomepage.dev/name: Home Assistant
+    gethomepage.dev/icon: home-assistant.png
+    gethomepage.dev/app: home-assistant
 spec:
   entryPoints:
     - websecure

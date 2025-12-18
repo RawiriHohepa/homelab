@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: radarr
+    app.kubernetes.io/name: radarr
   ports:
     - protocol: TCP
       port: 7878

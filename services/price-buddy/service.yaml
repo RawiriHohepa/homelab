@@ -6,7 +6,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: price-buddy
+    app.kubernetes.io/name: price-buddy
   ports:
     - protocol: TCP
       port: 80

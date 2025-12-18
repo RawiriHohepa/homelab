@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: readarr
+    app.kubernetes.io/name: readarr
   ports:
     - protocol: TCP
       port: 8787

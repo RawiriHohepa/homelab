@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: uptime-kuma
+      app.kubernetes.io/name: uptime-kuma
   replicas: 1
   progressDeadlineSeconds: 600
   revisionHistoryLimit: 2
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: uptime-kuma
+        app.kubernetes.io/name: uptime-kuma
     spec:
       containers:
       - name: uptime-kuma

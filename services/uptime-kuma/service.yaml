@@ -6,7 +6,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: uptime-kuma
+    app.kubernetes.io/name: uptime-kuma
   ports:
     - protocol: TCP
       port: 3001

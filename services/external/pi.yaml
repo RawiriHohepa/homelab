@@ -1,24 +1,24 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: unifi
+  name: uptime-pi
   namespace: services
   annotations:
     kubernetes.io/ingress.class: traefik-external
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: https://unifi.local.hohepa.dev
+    gethomepage.dev/href: https://uptime-pi.local.hohepa.dev
     gethomepage.dev/group: Internal
-    gethomepage.dev/name: Unifi
-    gethomepage.dev/icon: unifi.png
+    gethomepage.dev/name: Uptime Kuma - Pi
+    gethomepage.dev/icon: uptime-kuma.png
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`unifi.local.hohepa.dev`)
+    - match: Host(`uptime-pi.local.hohepa.dev`)
       kind: Rule
       services:
-        - name: unifi
-          port: 443
+        - name: uptime-pi
+          port: 3001
   tls:
     secretName: local-hohepa-dev-tls
 
@@ -26,11 +26,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi
+  name: uptime-pi
   namespace: services
 spec:
   type: ExternalName
   ports:
-  - name: https
-    port: 443
-  externalName: 192.168.0.1
+  - name: http
+    port: 3001
+  externalName: 192.168.50.51

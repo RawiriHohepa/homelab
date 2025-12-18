@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: qbittorrent
+    app.kubernetes.io/name: qbittorrent
   ports:
     - protocol: TCP
       port: 8080

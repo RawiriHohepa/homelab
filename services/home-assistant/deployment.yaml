@@ -4,17 +4,15 @@ kind: Deployment
 metadata:
   name: home-assistant
   namespace: services
-  labels:
-    app: home-assistant
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: home-assistant
+      app.kubernetes.io/name: home-assistant
   template:
     metadata:
       labels:
-        app: home-assistant
+        app.kubernetes.io/name: home-assistant
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [{
@@ -26,7 +24,7 @@ spec:
     spec:
       containers:
         - name: home-assistant
-          image: "ghcr.io/home-assistant/home-assistant:stable"
+          image: "ghcr.io/home-assistant/home-assistant:2025.12"
           securityContext:
             privileged: true
           ports:

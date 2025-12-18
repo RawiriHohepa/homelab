@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: radarr-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://radarr.test.local.hohepa.dev
+    gethomepage.dev/group: Servarr
+    gethomepage.dev/name: Radarr
+    gethomepage.dev/icon: radarr.png
+    gethomepage.dev/app: radarr
 spec:
   entryPoints:
     - websecure

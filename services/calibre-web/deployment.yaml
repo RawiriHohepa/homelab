@@ -7,15 +7,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: calibre-web
+      app.kubernetes.io/name: calibre-web
   template:
     metadata:
       labels:
-        app: calibre-web
+        app.kubernetes.io/name: calibre-web
     spec:
       containers:
       - name: calibre-web
-        image: linuxserver/calibre-web
+        image: linuxserver/calibre-web:0.6.25
         ports:
         - containerPort: 8083
         env:

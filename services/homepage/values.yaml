@@ -4,6 +4,13 @@ serviceAccount:
   create: true
 config:
   bookmarks:
+    - External:
+      - Raspberry Pi Connect:
+          - href: https://connect.raspberrypi.com/
+            icon: pi-hole.png
+      - Tailscale:
+          - href: https://login.tailscale.com/admin/machines/
+            icon: tailscale-light.png
   services:
   widgets:
     - kubernetes:

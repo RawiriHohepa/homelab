@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: home-assistant
+    app.kubernetes.io/name: home-assistant
   ports:
     - protocol: TCP
       port: 8123

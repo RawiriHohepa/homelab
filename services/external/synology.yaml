@@ -3,8 +3,13 @@ kind: IngressRoute
 metadata:
   name: synology
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://synology.local.hohepa.dev
+    gethomepage.dev/group: Internal
+    gethomepage.dev/name: Synology
+    gethomepage.dev/icon: synology-dsm.png
 spec:
   entryPoints:
     - websecure
@@ -14,6 +19,26 @@ spec:
       services:
         - name: synology
           port: 5000
+  tls:
+    secretName: local-hohepa-dev-tls
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: synology-syncthing
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://synology-syncthing.local.hohepa.dev
+    gethomepage.dev/group: Internal
+    gethomepage.dev/name: Synology Syncthing
+    gethomepage.dev/icon: syncthing.png
+spec:
+  entryPoints:
+    - websecure
+  routes:
     - match: Host(`synology-syncthing.local.hohepa.dev`)
       kind: Rule
       services:

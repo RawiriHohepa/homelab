@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: calibre-web-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://calibre-web.local.hohepa.dev
+    gethomepage.dev/group: Services
+    gethomepage.dev/name: Calibre Web
+    gethomepage.dev/icon: calibre-web.png
+    gethomepage.dev/app: calibre-web
 spec:
   entryPoints:
     - websecure

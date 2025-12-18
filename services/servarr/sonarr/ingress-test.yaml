@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: sonarr-ingress
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://sonarr.test.local.hohepa.dev
+    gethomepage.dev/group: Servarr
+    gethomepage.dev/name: Sonarr
+    gethomepage.dev/icon: sonarr.png
+    gethomepage.dev/app: sonarr
 spec:
   entryPoints:
     - websecure

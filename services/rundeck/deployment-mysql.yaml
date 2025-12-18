@@ -3,18 +3,16 @@ kind: Deployment
 metadata:
   name: rundeck-mysql
   namespace: services
-  labels:
-    app: rundeck-mysql
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: rundeck-mysql
+      app.kubernetes.io/name: rundeck-mysql
   template:
     metadata:
       labels:
-        app: rundeck-mysql
+        app.kubernetes.io/name: rundeck-mysql
     spec:
       containers:
       - image: mysql:5.7

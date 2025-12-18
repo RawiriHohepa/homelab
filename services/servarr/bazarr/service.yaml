@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: bazarr
+    app.kubernetes.io/name: bazarr
   ports:
     - protocol: TCP
       port: 6767

@@ -3,17 +3,15 @@ kind: Deployment
 metadata:
   name: rundeck
   namespace: services
-  labels:
-    app: rundeck
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rundeck
+      app.kubernetes.io/name: rundeck
   template:
     metadata:
       labels:
-        app: rundeck
+        app.kubernetes.io/name: rundeck
     spec:
       containers:
       - name: rundeck

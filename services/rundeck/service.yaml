@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: rundeck
+    app.kubernetes.io/name: rundeck
   ports:
     - protocol: TCP
       port: 4440
@@ -19,7 +19,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: rundeck-minio
+    app.kubernetes.io/name: rundeck-minio
   ports:
     - port: 9000
       targetPort: 9000
@@ -33,7 +33,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: rundeck-mysql
+    app.kubernetes.io/name: rundeck-mysql
   ports:
     - port: 3306
       targetPort: 3306

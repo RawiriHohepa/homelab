@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: calibre-web
+    app.kubernetes.io/name: calibre-web
   ports:
     - protocol: TCP
       port: 8083

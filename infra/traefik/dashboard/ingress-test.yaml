@@ -3,8 +3,14 @@ kind: IngressRoute
 metadata:
   name: traefik-dashboard
   namespace: traefik
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://traefik.test.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Traefik
+    gethomepage.dev/icon: traefik.png
+    gethomepage.dev/app: traefik
 spec:
   entryPoints:
     - websecure

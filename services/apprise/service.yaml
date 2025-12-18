@@ -5,7 +5,7 @@ metadata:
   namespace: services
 spec:
   selector:
-    app: apprise
+    app.kubernetes.io/name: apprise
   ports:
     - protocol: TCP
       port: 8000

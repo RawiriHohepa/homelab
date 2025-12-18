@@ -10,10 +10,15 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: proxmox
+  name: proxmox-tane-mahuta
   namespace: services
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://proxmox-tane-mahuta.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Proxmox - Tane Mahuta
+    gethomepage.dev/icon: proxmox.png
 spec:
   entryPoints:
     - websecure
@@ -25,6 +30,24 @@ spec:
       port: 443
       scheme: https
       serversTransport: selfsigned
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: proxmox-tangaroa
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://proxmox-tangaroa.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Proxmox - Tangaroa
+    gethomepage.dev/icon: proxmox.png
+spec:
+  entryPoints:
+    - websecure
+  routes:
   - match: Host(`proxmox-tangaroa.local.hohepa.dev`)
     kind: Rule
     services:
@@ -32,6 +55,24 @@ spec:
       port: 443
       scheme: https
       serversTransport: selfsigned
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: proxmox-tawhirimatea
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://proxmox-tawhirimatea.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Proxmox - Tawhirimatea
+    gethomepage.dev/icon: proxmox.png
+spec:
+  entryPoints:
+    - websecure
+  routes:
   - match: Host(`proxmox-tawhirimatea.local.hohepa.dev`)
     kind: Rule
     services:
