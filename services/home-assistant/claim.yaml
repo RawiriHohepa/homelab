@@ -4,7 +4,7 @@ metadata:
   name: home-assistant-config-volume
 spec:
   capacity:
-    storage: 512Mi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -26,7 +26,7 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 512Mi
+      storage: 1Gi
   volumeName: home-assistant-config-volume
 
 ---

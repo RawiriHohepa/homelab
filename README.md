@@ -57,7 +57,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
-# - home-assistant-config-volume    512Mi
+# - home-assistant-config-volume    1Gi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            10Gi
 # - sonarr-config-volume            10Gi
