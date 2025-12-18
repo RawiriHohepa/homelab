@@ -1,0 +1,26 @@
+# https://github.com/jameswynn/helm-charts/blob/main/charts/homepage/values.yaml
+enableRbac: true
+serviceAccount:
+  create: true
+config:
+  bookmarks:
+  services:
+  widgets:
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+  kubernetes:
+    mode: cluster
+    traefik: true
+env:
+  - name: HOMEPAGE_ALLOWED_HOSTS
+    value: "homepage.local.hohepa.dev,homepage.test.local.hohepa.dev"

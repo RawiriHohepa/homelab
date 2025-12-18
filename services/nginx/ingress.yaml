@@ -3,8 +3,15 @@ kind: IngressRoute
 metadata:
   name: nginx
   namespace: default
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "false"
+    gethomepage.dev/href: https://nginx.local.hohepa.dev
+    gethomepage.dev/group: Sample
+    gethomepage.dev/name: Nginx
+    gethomepage.dev/description: Sample nginx deployment
+    gethomepage.dev/icon: nginx.png
+    gethomepage.dev/app: nginx
 spec:
   entryPoints:
     - websecure

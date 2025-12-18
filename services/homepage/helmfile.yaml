@@ -1,0 +1,10 @@
+repositories:
+- name: jameswynn 
+  url: http://jameswynn.github.io/helm-charts
+
+releases:
+- name: homepage
+  namespace: services
+  chart: jameswynn/homepage
+  values:
+  - "./values.yaml"

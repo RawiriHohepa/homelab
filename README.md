@@ -82,6 +82,9 @@ kubectl apply -f namespace.yaml
 
 kubectl apply -f external/
 
+kubectl apply -f homepage/ingress.yaml # or ingress-test.yaml
+helmfile apply -f homepage/helmfile.yaml
+
 kubectl apply -f heimdall/claim.yaml
 kubectl apply -f heimdall/ingress.yaml # or ingress-test.yaml
 helmfile apply -f heimdall/helmfile.yaml
