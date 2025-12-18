@@ -124,6 +124,12 @@ kubectl apply -f change-detection/deployment.yaml # or deployment-test.yaml
 kubectl apply -f change-detection/service.yaml
 kubectl apply -f change-detection/ingress.yaml # or ingress-test.yaml
 
+kubectl create secret generic price-buddy-env  -n services --from-file=price-buddy/.env
+kubectl apply -f price-buddy/claim.yaml
+kubectl apply -f price-buddy/deployment.yaml # or deployment-test.yaml
+kubectl apply -f price-buddy/service.yaml
+kubectl apply -f price-buddy/ingress.yaml # or ingress-test.yaml
+
 kubectl apply -f servarr/qbittorrent/claim.yaml
 kubectl apply -f servarr/qbittorrent/deployment.yaml
 kubectl apply -f servarr/qbittorrent/service.yaml
