@@ -1,0 +1,8 @@
+repositories:
+- name: cnpg
+  url: https://cloudnative-pg.github.io/charts
+
+releases:
+- name: cloudnative-pg
+  namespace: cnpg-system
+  chart: cnpg/cloudnative-pg

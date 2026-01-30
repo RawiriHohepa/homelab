@@ -76,6 +76,12 @@ kubectl apply -f multus/sample-pod.yaml
 ping 192.168.50.200
 kubectl delete -f multus/sample-pod.yaml
 
+kubectl apply -f cloudnative-pg/namespace.yaml
+helmfile apply -f cloudnative-pg/helmfile.yaml
+# kubectl apply -f cloudnative-pg/cluster-example.yaml
+# kubectl get pods -l cnpg.io/cluster=cluster-example
+# kubectl delete -f cloudnative-pg/cluster-example.yaml
+
 cd ../services/
 kubectl apply -f namespace.yaml
 
