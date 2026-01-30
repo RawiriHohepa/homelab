@@ -56,7 +56,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
-# - home-assistant-config-volume    1Gi
+# - home-assistant-config-volume    2Gi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            10Gi
 # - sonarr-config-volume            10Gi
@@ -67,7 +67,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - audiobookshelf-metadata-volume  512Mi
 # - apprise-config-volume           512Mi
 # - price-buddy-storage-volume      512Mi
-# - price-buddy-database-volume     2Gi
+# - price-buddy-database-volume     10Gi
 
 helmfile apply -f multus/helmfile.yaml
 kubectl apply -f multus/network-attachment-definition.yaml
@@ -84,10 +84,6 @@ kubectl apply -f external/
 kubectl apply -f homepage/ingress.yaml
 kubectl apply -f homepage/ingress-test.yaml
 helmfile apply -f homepage/helmfile.yaml
-
-kubectl apply -f heimdall/claim.yaml
-kubectl apply -f heimdall/ingress.yaml # or ingress-test.yaml
-helmfile apply -f heimdall/helmfile.yaml
 
 kubectl apply -f uptime-kuma/claim.yaml
 kubectl apply -f uptime-kuma/deployment.yaml
