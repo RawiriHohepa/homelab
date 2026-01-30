@@ -1,0 +1,56 @@
+apiVersion: v1
+data:
+  username: c29uYXJy
+  password: c29uYXJy
+kind: Secret
+metadata:
+  name: sonarr-db
+  namespace: services
+type: kubernetes.io/basic-auth
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: sonarr-db
+  namespace: services
+spec:
+  instances: 1
+  bootstrap:
+    initdb:
+      owner: sonarr
+      secret:
+        name: sonarr-db
+  storage:
+    pvcTemplate:
+      accessModes:
+      - ReadWriteMany
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
+      volumeName: sonarr-db-volume
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-main
+  namespace: services
+spec:
+  name: sonarr-main
+  owner: sonarr
+  cluster:
+    name: sonarr-db
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-log
+  namespace: services
+spec:
+  name: sonarr-log
+  owner: sonarr
+  cluster:
+    name: sonarr-db

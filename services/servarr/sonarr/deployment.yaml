@@ -25,6 +25,12 @@ spec:
           value: "114670"
         - name: PGID
           value: "104555"
+        - name: SONARR__POSTGRES__HOST
+          value: sonarr-db-rw
+        - name: SONARR__POSTGRES__USER
+          value: sonarr
+        - name: SONARR__POSTGRES__PASSWORD
+          value: sonarr
         volumeMounts:
         - mountPath: /config
           name: sonarr-config

@@ -59,7 +59,8 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - home-assistant-config-volume    2Gi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            10Gi
-# - sonarr-config-volume            10Gi
+# - sonarr-config-volume            1Gi
+# - sonarr-db-volume                1Gi
 # - readarr-config-volume           10Gi
 # - prowlarr-config-volume          5Gi
 # - bazarr-config-volume            1Gi
@@ -148,6 +149,8 @@ kubectl apply -f servarr/radarr/service.yaml
 kubectl apply -f servarr/radarr/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f servarr/sonarr/claim.yaml
+kubectl apply -f servarr/sonarr/cluster.yaml
+# Wait for cluster to be created
 kubectl apply -f servarr/sonarr/deployment.yaml
 kubectl apply -f servarr/sonarr/service.yaml
 kubectl apply -f servarr/sonarr/ingress.yaml # or ingress-test.yaml
