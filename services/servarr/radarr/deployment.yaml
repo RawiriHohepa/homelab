@@ -25,6 +25,12 @@ spec:
           value: "114670"
         - name: PGID
           value: "104555"
+        - name: RADARR__POSTGRES__HOST
+          value: radarr-db-rw
+        - name: RADARR__POSTGRES__USER
+          value: radarr # matches encoded secret in cluster.yaml
+        - name: RADARR__POSTGRES__PASSWORD
+          value: radarr # matches encoded secret in cluster.yaml
         volumeMounts:
         - mountPath: /config
           name: radarr-config

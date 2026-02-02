@@ -14,32 +14,49 @@ kind: Cluster
 metadata:
   name: radarr-db
   namespace: services
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   instances: 1
   bootstrap:
-    initdb:
-    # recovery:
+    # initdb:
+    #   owner: radarr
+    #   secret:
+    #     name: radarr-db
+    recovery:
+      source: radarr-db-backup
       owner: radarr
       secret:
         name: radarr-db
-      # volumeSnapshots:
-        # storage:
-        #   name: radarr-db-claim
-        #   kind: PersistentVolumeClaim
-        #   apiGroup: v1
-        # storage:
-          # name: 87c8f550-d7fa-43ce-9876-fb6ca930d7f3
-          # kind: VolumeSnapshot
-          # apiGroup: snapshot.storage.k8s.io
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cloudnative-pg-backups/"
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"
+      s3Credentials:
+        accessKeyId:
+          name: minio-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: minio-creds
+          key: ACCESS_SECRET_KEY
+
   storage:
-    pvcTemplate:
-      accessModes:
-      - ReadWriteMany
-      storageClassName: longhorn
-      resources:
-        requests:
-          storage: 2Gi
-      volumeName: radarr-db-volume
+    size: 2Gi
+
+  externalClusters:
+    - name: radarr-db-backup
+      barmanObjectStore:
+        serverName: radarr-db
+        destinationPath: "s3://cloudnative-pg-backups/"
+        endpointURL: "http://minio.minio.svc.cluster.local:9000"
+        s3Credentials:
+          accessKeyId:
+            name: minio-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: minio-creds
+            key: ACCESS_SECRET_KEY
 
 ---
 apiVersion: postgresql.cnpg.io/v1

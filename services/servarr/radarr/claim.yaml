@@ -1,10 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: radarr-db-volume
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: radarr-db-volume
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: radarr-config-volume
 spec:
   capacity:
-    storage: 10Gi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -26,5 +43,5 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi
   volumeName: radarr-config-volume

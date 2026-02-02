@@ -151,6 +151,10 @@ kubectl apply -f servarr/qbittorrent/service.yaml
 kubectl apply -f servarr/qbittorrent/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f servarr/radarr/claim.yaml
+# If no minio backup exists: comment recovery section and uncomment initdb section of cluster.yaml
+kubectl apply -f servarr/radarr/cluster.yaml
+# Wait for cluster to be created
+kubectl apply -f servarr/radarr/backup.yaml
 kubectl apply -f servarr/radarr/deployment.yaml
 kubectl apply -f servarr/radarr/service.yaml
 kubectl apply -f servarr/radarr/ingress.yaml # or ingress-test.yaml
