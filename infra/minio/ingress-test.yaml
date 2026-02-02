@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: minio-console
+  namespace: minio
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://minio.test.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: Minio
+    gethomepage.dev/icon: minio.png
+    gethomepage.dev/app: minio
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`minio.test.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: minio-console
+          port: 9001
+  tls:
+    secretName: test-local-hohepa-dev-tls

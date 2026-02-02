@@ -1,0 +1,10 @@
+repositories:
+- name: minio
+  url: https://charts.min.io/
+
+releases:
+- name: minio
+  namespace: minio
+  chart: minio/minio
+  values:
+  - "./values.yaml"

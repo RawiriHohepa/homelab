@@ -50,6 +50,7 @@ helmfile apply -f longhorn/helmfile.yaml
 kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # restore volumes from backup or create manually
 # prod:
+# - minio-data-volume               5Gi
 # - calibre-web-config-volume       5Gi
 # - jellyfin-config-volume          10Gi
 # - jellyfin-media-volume           5Gi
@@ -81,6 +82,11 @@ helmfile apply -f cloudnative-pg/helmfile.yaml
 # kubectl apply -f cloudnative-pg/cluster-example.yaml
 # kubectl get pods -l cnpg.io/cluster=cluster-example
 # kubectl delete -f cloudnative-pg/cluster-example.yaml
+
+kubectl apply -f minio/namespace.yaml
+kubectl apply -f minio/claim.yaml
+helmfile apply -f minio/helmfile.yaml
+kubectl apply -f minio/ingress.yaml # or ingress-test.yaml
 
 cd ../services/
 kubectl apply -f namespace.yaml
