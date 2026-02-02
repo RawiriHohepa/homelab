@@ -1,0 +1,66 @@
+apiVersion: v1
+data:
+  username: cmFkYXJy
+  password: cmFkYXJy
+kind: Secret
+metadata:
+  name: radarr-db
+  namespace: services
+type: kubernetes.io/basic-auth
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: radarr-db
+  namespace: services
+spec:
+  instances: 1
+  bootstrap:
+    initdb:
+    # recovery:
+      owner: radarr
+      secret:
+        name: radarr-db
+      # volumeSnapshots:
+        # storage:
+        #   name: radarr-db-claim
+        #   kind: PersistentVolumeClaim
+        #   apiGroup: v1
+        # storage:
+          # name: 87c8f550-d7fa-43ce-9876-fb6ca930d7f3
+          # kind: VolumeSnapshot
+          # apiGroup: snapshot.storage.k8s.io
+  storage:
+    pvcTemplate:
+      accessModes:
+      - ReadWriteMany
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 2Gi
+      volumeName: radarr-db-volume
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: radarr-main
+  namespace: services
+spec:
+  name: radarr-main
+  owner: radarr
+  cluster:
+    name: radarr-db
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: radarr-log
+  namespace: services
+spec:
+  name: radarr-log
+  owner: radarr
+  cluster:
+    name: radarr-db

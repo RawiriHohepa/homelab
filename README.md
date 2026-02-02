@@ -60,7 +60,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - home-assistant-config-volume    2Gi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            10Gi
-# - sonarr-config-volume            10Gi
+# - sonarr-config-volume            1Gi
 # - readarr-config-volume           10Gi
 # - prowlarr-config-volume          5Gi
 # - bazarr-config-volume            1Gi
@@ -87,6 +87,8 @@ kubectl apply -f minio/namespace.yaml
 kubectl apply -f minio/claim.yaml
 helmfile apply -f minio/helmfile.yaml
 kubectl apply -f minio/ingress.yaml # or ingress-test.yaml
+kubectl apply -f minio/secret.yaml
+# If first time, manually create cloudnative-pg-backups bucket through dashboard
 
 cd ../services/
 kubectl apply -f namespace.yaml
@@ -154,6 +156,10 @@ kubectl apply -f servarr/radarr/service.yaml
 kubectl apply -f servarr/radarr/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f servarr/sonarr/claim.yaml
+# If no minio backup exists: comment recovery section and uncomment initdb section of cluster.yaml
+kubectl apply -f servarr/sonarr/cluster.yaml
+# Wait for cluster to be created
+kubectl apply -f servarr/sonarr/backup.yaml
 kubectl apply -f servarr/sonarr/deployment.yaml
 kubectl apply -f servarr/sonarr/service.yaml
 kubectl apply -f servarr/sonarr/ingress.yaml # or ingress-test.yaml

@@ -1,0 +1,83 @@
+apiVersion: v1
+data:
+  username: c29uYXJy
+  password: c29uYXJy
+kind: Secret
+metadata:
+  name: sonarr-db
+  namespace: services
+type: kubernetes.io/basic-auth
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: sonarr-db
+  namespace: services
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  instances: 1
+  bootstrap:
+    # initdb:
+    #   owner: sonarr
+    #   secret:
+    #     name: sonarr-db
+    recovery:
+      source: sonarr-db-backup
+      owner: sonarr
+      secret:
+        name: sonarr-db
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cloudnative-pg-backups/"
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"
+      s3Credentials:
+        accessKeyId:
+          name: minio-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: minio-creds
+          key: ACCESS_SECRET_KEY
+
+  storage:
+    size: 2Gi
+
+  externalClusters:
+    - name: sonarr-db-backup
+      barmanObjectStore:
+        serverName: sonarr-db
+        destinationPath: "s3://cloudnative-pg-backups/"
+        endpointURL: "http://minio.minio.svc.cluster.local:9000"
+        s3Credentials:
+          accessKeyId:
+            name: minio-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: minio-creds
+            key: ACCESS_SECRET_KEY
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-main
+  namespace: services
+spec:
+  name: sonarr-main
+  owner: sonarr
+  cluster:
+    name: sonarr-db
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sonarr-log
+  namespace: services
+spec:
+  name: sonarr-log
+  owner: sonarr
+  cluster:
+    name: sonarr-db
