@@ -8,6 +8,7 @@ spec:
   backupOwnerReference: self
   cluster:
     name: radarr-db
+  immediate: true
 
 # ---
 # apiVersion: postgresql.cnpg.io/v1

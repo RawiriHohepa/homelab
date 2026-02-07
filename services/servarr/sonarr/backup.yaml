@@ -8,6 +8,7 @@ spec:
   backupOwnerReference: self
   cluster:
     name: sonarr-db
+  immediate: true
 
 # ---
 # apiVersion: postgresql.cnpg.io/v1
