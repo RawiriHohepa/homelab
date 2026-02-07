@@ -1,3 +1,8 @@
+# https://github.com/jellyfin/jellyfin-helm/blob/master/charts/jellyfin/values.yaml
+image:
+  repository: ghcr.io/jpvenson/jellyfin.pgsql
+  tag: 10.11.6-1
+
 replicaCount: 1
 
 volumes:
@@ -11,9 +16,23 @@ volumeMounts:
   - mountPath: /media-library
     name: jellyfin-media-library-nfs
 
+jellyfin:
+  env:
+    - name: POSTGRES_HOST
+      value: jellyfin-db-rw
+    - name: POSTGRES_PORT
+      value: "5432"
+    - name: POSTGRES_DB
+      value: jellyfin
+    - name: POSTGRES_USER
+      value: jellyfin # matches encoded secret in cluster.yaml
+    - name: POSTGRES_PASSWORD
+      value: jellyfin # matches encoded secret in cluster.yaml
+
 persistence:
   config:
+    size: 5Gi
     existingClaim: jellyfin-config-claim
   media:
-    size: 5Gi
+    size: 2.5Gi
     existingClaim: jellyfin-media-claim

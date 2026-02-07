@@ -1,0 +1,65 @@
+apiVersion: v1
+data:
+  username: amVsbHlmaW4=
+  password: amVsbHlmaW4=
+kind: Secret
+metadata:
+  name: jellyfin-db
+  namespace: services
+type: kubernetes.io/basic-auth
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: jellyfin-db
+  namespace: services
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
+spec:
+  instances: 1
+  bootstrap:
+    # initdb:
+    #   owner: jellyfin
+    #   secret:
+    #     name: jellyfin-db
+    #   database: jellyfin
+    recovery:
+      source: jellyfin-db-backup
+      owner: jellyfin
+      secret:
+        name: jellyfin-db
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cloudnative-pg-backups/"
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"
+      s3Credentials:
+        accessKeyId:
+          name: minio-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: minio-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
+      data:
+        compression: bzip2
+    retentionPolicy: "2d"
+
+  storage:
+    size: 2Gi
+
+  externalClusters:
+    - name: jellyfin-db-backup
+      barmanObjectStore:
+        serverName: jellyfin-db
+        destinationPath: "s3://cloudnative-pg-backups/"
+        endpointURL: "http://minio.minio.svc.cluster.local:9000"
+        s3Credentials:
+          accessKeyId:
+            name: minio-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: minio-creds
+            key: ACCESS_SECRET_KEY

@@ -52,14 +52,14 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # prod:
 # - minio-data-volume               5Gi
 # - calibre-web-config-volume       5Gi
-# - jellyfin-config-volume          10Gi
-# - jellyfin-media-volume           5Gi
+# - jellyfin-config-volume          5Gi
+# - jellyfin-media-volume           2.5Gi
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
 # - home-assistant-config-volume    2Gi
 # - qbittorrent-config-volume       1Gi
-# - radarr-config-volume            10Gi
+# - radarr-config-volume            1Gi
 # - sonarr-config-volume            1Gi
 # - readarr-config-volume           10Gi
 # - prowlarr-config-volume          5Gi
@@ -110,6 +110,10 @@ kubectl apply -f calibre-web/service.yaml
 kubectl apply -f calibre-web/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f jellyfin/claim.yaml
+# If no minio backup exists: comment recovery section and uncomment initdb section of cluster.yaml
+kubectl apply -f jellyfin/cluster.yaml
+# Wait for cluster to be created
+kubectl apply -f jellyfin/backup.yaml
 kubectl apply -f jellyfin/ingress.yaml # or ingress-test.yaml
 helmfile apply -f jellyfin/helmfile.yaml
 
