@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homebox
+  namespace: services
+spec:
+  selector:
+    app.kubernetes.io/name: homebox
+  ports:
+    - protocol: TCP
+      port: 7745
+      targetPort: 7745

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebox
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: homebox
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: homebox
+    spec:
+      containers:
+      - name: homebox
+        image: sysadminsmedia/homebox:0.23
+        ports:
+        - containerPort: 7745
+        env:
+        - name: HBOX_LOG_LEVEL
+          value: warn
+        - name: HBOX_LOG_FORMAT
+          value: text
+        - name: HBOX_WEB_MAX_UPLOAD_SIZE
+          value: "10"
+        - name: HBOX_OPTIONS_ALLOW_ANALYTICS
+          value: "false"
+        - name: HBOX_DATABASE_DRIVER
+          value: postgres
+        - name: HBOX_DATABASE_HOST
+          value: homebox-db-rw
+        - name: HBOX_DATABASE_PORT
+          value: "5432"
+        - name: HBOX_DATABASE_USERNAME
+          value: homebox # matches encoded secret in cluster.yaml
+        - name: HBOX_DATABASE_PASSWORD
+          value: homebox # matches encoded secret in cluster.yaml
+        - name: HBOX_DATABASE_DATABASE
+          value: homebox
+        volumeMounts:
+        - mountPath: /data
+          name: homebox-data
+      volumes:
+      - name: homebox-data
+        persistentVolumeClaim:
+          claimName:  homebox-data-claim

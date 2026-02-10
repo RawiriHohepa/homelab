@@ -69,6 +69,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - apprise-config-volume           512Mi
 # - price-buddy-storage-volume      512Mi
 # - price-buddy-database-volume     10Gi
+# - homebox-data-volume             512Mi
 
 helmfile apply -f multus/helmfile.yaml
 kubectl apply -f multus/network-attachment-definition.yaml
@@ -148,6 +149,15 @@ kubectl apply -f price-buddy/claim.yaml
 kubectl apply -f price-buddy/deployment.yaml # or deployment-test.yaml
 kubectl apply -f price-buddy/service.yaml
 kubectl apply -f price-buddy/ingress.yaml # or ingress-test.yaml
+
+kubectl apply -f homebox/claim.yaml
+# If no minio backup exists: comment recovery section and uncomment initdb section of cluster.yaml
+kubectl apply -f homebox/cluster.yaml
+# Wait for cluster to be created
+kubectl apply -f homebox/backup.yaml
+kubectl apply -f homebox/deployment.yaml
+kubectl apply -f homebox/service.yaml
+kubectl apply -f homebox/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f servarr/qbittorrent/claim.yaml
 kubectl apply -f servarr/qbittorrent/deployment.yaml
