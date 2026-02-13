@@ -16,3 +16,6 @@ persistence:
 resources:
   requests:
     memory: 256Mi
+
+podLabels:
+  app.kubernetes.io/name: minio

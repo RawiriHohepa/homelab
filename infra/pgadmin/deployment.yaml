@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: cnpg-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pgadmin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: dpage/pgadmin4:9.12
+          ports:
+            - containerPort: 80
+          env:
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: admin@example.com
+            - name: PGADMIN_DEFAULT_PASSWORD
+              value: admin
+          volumeMounts:
+          - mountPath: /var/lib/pgadmin
+            name: pgadmin-config
+      volumes:
+      - name: pgadmin-config
+        persistentVolumeClaim:
+          claimName:  pgadmin-config-claim

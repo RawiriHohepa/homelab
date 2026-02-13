@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pgadmin-ingress
+  namespace: cnpg-system
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: https://pgadmin.local.hohepa.dev
+    gethomepage.dev/group: Infra
+    gethomepage.dev/name: pgAdmin
+    gethomepage.dev/icon: pgadmin.png
+    gethomepage.dev/app: pgadmin
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`pgadmin.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: pgadmin
+          port: 80
+  tls:
+    secretName: local-hohepa-dev-tls
