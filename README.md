@@ -67,6 +67,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - bazarr-config-volume            1Gi
 # - audiobookshelf-config-volume    512Mi
 # - audiobookshelf-metadata-volume  512Mi
+# - actual-budget-data-volume       2Gi
 # - apprise-config-volume           512Mi
 # - price-buddy-storage-volume      512Mi
 # - price-buddy-database-volume     10Gi
@@ -145,6 +146,11 @@ kubectl apply -f home-assistant/ingress.yaml # or ingress-test.yaml
 # - Complete setup at 192.168.50.(2|3)4:8123
 # - Uncomment home-assistant-config-yaml volume & mount
 # - Delete and recreate deployment or deployment-test
+
+kubectl apply -f actual-budget/claim.yaml
+kubectl apply -f actual-budget/deployment.yaml
+kubectl apply -f actual-budget/service.yaml
+kubectl apply -f actual-budget/ingress.yaml # or ingress-test.yaml
 
 kubectl apply -f apprise/claim.yaml
 kubectl apply -f apprise/deployment.yaml
