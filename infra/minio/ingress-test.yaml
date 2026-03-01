@@ -15,6 +15,11 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - match: Host(`minio-api.test.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: minio
+          port: 9000
     - match: Host(`minio.test.local.hohepa.dev`)
       kind: Rule
       services:
