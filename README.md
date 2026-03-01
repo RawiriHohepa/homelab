@@ -58,7 +58,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
 # - rundeck-mysql-storage-volume    5Gi
-# - home-assistant-config-volume    2Gi
+# - home-assistant-config-volume    10Gi
 # - qbittorrent-config-volume       1Gi
 # - radarr-config-volume            1Gi
 # - sonarr-config-volume            1Gi
@@ -137,6 +137,7 @@ kubectl apply -f rundeck/ingress.yaml # or ingress-test.yaml
 kubectl apply -f home-assistant/claim.yaml
 kubectl apply -f home-assistant/configuration.yaml
 # If first time using volume, comment out home-assistant-config-yaml volume & mount
+# After starting, delete and uncomment volume & mount
 kubectl apply -f home-assistant/deployment.yaml # or deployment-test.yaml
 kubectl apply -f home-assistant/service.yaml
 kubectl apply -f home-assistant/ingress.yaml # or ingress-test.yaml

@@ -19,6 +19,7 @@ data:
     http:
       use_x_forwarded_for: true
       trusted_proxies:
+        - 192.168.0.0/16
         - 10.42.0.0/16
     logger:
       default: warning

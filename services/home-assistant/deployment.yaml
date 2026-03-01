@@ -13,14 +13,14 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: home-assistant
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name": "multus-network",
-            "namespace": "default",
-            "mac": "bc:24:11:e6:1b:4b",
-            "ips": ["192.168.50.24/24"]
-          }]
+      # annotations:
+      #   k8s.v1.cni.cncf.io/networks: |
+      #     [{
+      #       "name": "multus-network",
+      #       "namespace": "default",
+      #       "mac": "bc:24:11:e6:1b:4b",
+      #       "ips": ["192.168.50.24/24"]
+      #     }]
     spec:
       containers:
         - name: home-assistant
@@ -48,3 +48,4 @@ spec:
         - name: home-assistant-time
           persistentVolumeClaim:
             claimName: home-assistant-time-claim
+      hostNetwork: true
