@@ -5,3 +5,7 @@ talos/**/kubeconfig
 talos/**/secrets.yaml
 
 docker/**/*.env
+
+.terraform
+.bw-provider-state
+.terraform.lock.hcl
