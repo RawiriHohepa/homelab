@@ -3,7 +3,7 @@ kind: Connector
 metadata:
   name: tailscale-connector
 spec:
-  hostname: homelab-connector
+  hostname: homelab-connector-production
   subnetRouter:
     advertiseRoutes:
       - "192.168.0.0/16"

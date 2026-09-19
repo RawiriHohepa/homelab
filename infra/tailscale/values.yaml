@@ -1,6 +1,7 @@
-oauth:
-  clientId: abc123
-  clientSecret: abc123
+# # When unset, chart looks for an existing "operator-oauth" secret in the "tailscale" namespace
+# oauth:
+#   clientId: abc123
+#   clientSecret: abc123
 
 operatorConfig:
-  hostname: homelab
+  hostname: homelab-production
