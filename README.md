@@ -20,6 +20,11 @@ Commented lines are actions to take outside of terminal
 
 cd infra/
 
+helmfile apply -f external-secrets/helmfile.yaml
+kubectl apply -f external-secrets/certs.yaml
+kubectl apply -f external-secrets/store.yaml
+kubectl apply -f external-secrets/example.yaml
+
 helmfile apply -f traefik/helmfile.yaml # or helmfile-test.yaml
 kubectl apply -f traefik/dashboard/ingress.yaml # or ingress-test.yaml
 

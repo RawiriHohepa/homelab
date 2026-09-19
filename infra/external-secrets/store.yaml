@@ -1,0 +1,25 @@
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata:
+  name: bitwarden-secretsmanager
+  namespace: external-secrets
+spec:
+  provider:
+    bitwardensecretsmanager:
+      apiURL: https://api.bitwarden.com
+      identityURL: https://identity.bitwarden.com
+      auth:
+        secretRef:
+          credentials:
+            # created in terraform/k8s.tf
+            name: bitwarden-access-token
+            key: token
+      bitwardenServerSDKURL: https://bitwarden-sdk-server.external-secrets.svc.cluster.local:9998
+      # TODO extract into a separate secret - https://cert-manager.io/docs/trust/
+      caProvider:
+        type: "Secret"
+        name: "bitwarden-tls-certs"
+        key: "ca.crt"
+      # TODO parameterise somehow
+      organizationID: 76ad4353-e945-4fd1-8642-b246002cdc66
+      projectID: 2c859e29-bddc-42bd-865b-b4c8003fd62c

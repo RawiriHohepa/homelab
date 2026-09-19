@@ -6,7 +6,7 @@ resource "bitwarden-secrets_secret" "foo" {
 }
 
 # # Generate a new value
-# resource "bitwarden-secrets_secret" "db_admin_secret" {
+# resource "bitwarden-secrets_secret" "db_admin_password" {
 #   key         = "db_admin_password"
 #   project_id  = var.bitwarden_project_id
 #   length      = 32

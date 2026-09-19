@@ -3,11 +3,15 @@ terraform {
     required_providers {
         sops = {
             source = "carlpett/sops"
-            version = "~> 1.3.0"
+            version = "~> 1.4.1"
         }
         bitwarden-secrets = {
             source = "registry.terraform.io/bitwarden/bitwarden-secrets"
             version = "~> 1.0.1"
+        }
+        kubernetes = {
+            source  = "hashicorp/kubernetes"
+            version = "~> 3.2.1"
         }
     }
 }
@@ -25,6 +29,10 @@ provider "bitwarden-secrets" {
     identity_url = "https://identity.bitwarden.com"
     organization_id = var.bitwarden_org_id
     access_token = data.sops_file.secrets.data["bitwarden_access_token"]
+}
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
 }
 
 terraform {

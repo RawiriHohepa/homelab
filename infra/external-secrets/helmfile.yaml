@@ -1,0 +1,12 @@
+repositories:
+- name: external-secrets
+  url: https://charts.external-secrets.io
+
+releases:
+- name: external-secrets
+  namespace: external-secrets
+  chart: external-secrets/external-secrets
+  # see https://external-secrets.io/latest/introduction/stability-support/ for supported versions matching k8s version
+  version: "0.19"
+  values:
+  - "./values.yaml"
