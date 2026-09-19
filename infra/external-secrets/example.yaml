@@ -2,13 +2,19 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: example
-  namespace: external-secrets
+  namespace: default
 spec:
   refreshInterval: 1h0m0s
   secretStoreRef:
-    # This name must match the metadata.name in the `SecretStore`
     name: bitwarden-secretsmanager
-    kind: SecretStore
+    kind: ClusterSecretStore
+  target:
+    name: external-secrets-example
+    template:
+      engineVersion: v2
+      metadata:
+        annotations:
+          foo: "bar"
   data:
   - secretKey: foo
     remoteRef:
