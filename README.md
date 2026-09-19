@@ -22,7 +22,7 @@ cd infra/
 
 helmfile apply -f external-secrets/helmfile.yaml
 kubectl apply -f external-secrets/certs.yaml
-kubectl apply -f external-secrets/store.yaml
+kubectl apply -k external-secrets/overlays/production/ # creates base/store.yaml with overlays/production/store.yaml patch
 kubectl apply -f external-secrets/example.yaml
 
 helmfile apply -f traefik/helmfile.yaml # or helmfile-test.yaml

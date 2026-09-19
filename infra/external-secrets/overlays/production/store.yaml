@@ -1,0 +1,10 @@
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: bitwarden-secretsmanager
+  namespace: external-secrets
+spec:
+  provider:
+    bitwardensecretsmanager:
+      organizationID: 76ad4353-e945-4fd1-8642-b246002cdc66
+      projectID: 2c859e29-bddc-42bd-865b-b4c8003fd62c
