@@ -28,7 +28,7 @@ provider "bitwarden-secrets" {
     api_url = "https://api.bitwarden.com"
     identity_url = "https://identity.bitwarden.com"
     organization_id = var.bitwarden_org_id
-    access_token = data.sops_file.secrets.data["bitwarden_access_token"]
+    access_token = data.sops_file.secrets.data["bitwarden-access-token"]
 }
 
 provider "kubernetes" {

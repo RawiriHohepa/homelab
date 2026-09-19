@@ -17,7 +17,7 @@ resource "kubernetes_secret_v1" "bitwarden_access_token" {
   }
 
   data = {
-    token = data.sops_file.secrets.data["bitwarden_access_token"]
+    token = data.sops_file.secrets.data["bitwarden-access-token"]
   }
 
   type = "Opaque"
