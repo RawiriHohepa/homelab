@@ -57,7 +57,7 @@ kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
 # - minio-data-volume               5Gi
 # - pgadmin-config-volume           512Mi
 # - calibre-web-config-volume       5Gi
-# - jellyfin-config-volume          5Gi
+# - jellyfin-config-volume          10Gi
 # - jellyfin-media-volume           2.5Gi
 # - uptime-kuma-data-volume         5Gi
 # - rundeck-minio-storage-volume    5Gi
