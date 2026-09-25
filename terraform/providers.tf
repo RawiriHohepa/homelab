@@ -19,7 +19,7 @@ terraform {
 provider "sops" {}
 
 # Must be data instead of ephemeral - bitwarden secrets are not write-only and must be persisted in state
-# TF state is stored remotely in Cloudflare R2 so plaintext secrets is acceptable
+# TF state is stored remotely in Cloudflare R2 so plaintext secrets are acceptable
 data "sops_file" "secrets" {
     source_file = "sops/secrets.enc.${var.environment}.json"
 }
@@ -36,6 +36,8 @@ provider "kubernetes" {
 }
 
 terraform {
+    # Use Cloudflare R2 buckets for remote terraform state
+    # LIMITATION: R2 does not support versioned objects - consider creating a copy of terraform.tfstate before performing risky actions 
     backend "s3" {
         key = "terraform.tfstate"
         use_lockfile = true
