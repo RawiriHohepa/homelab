@@ -3,22 +3,12 @@
 ## Deployment process
 Commented lines are actions to take outside of terminal
 ```bash
-# cd talos/prod/ # or talos/test/
-# # uncomment lines for first run
-# ./setup.sh
-# # wait for nodes to be ready
-# kubectl taint nodes tane-mahuta node-role.kubernetes.io/control-plane:NoSchedule-
-# kubectl taint nodes tangaroa node-role.kubernetes.io/control-plane:NoSchedule-
-# kubectl taint nodes tawhirimatea node-role.kubernetes.io/control-plane:NoSchedule-
-
-# cd ../../infra/
+cd infra/
 
 # helmfile apply -f metrics-server/helmfile.yaml
 
 # kubectl apply -f kube-vip/namespace.yaml
 # helmfile apply -f kube-vip/helmfile.yaml # or helmfile-test.yaml
-
-cd infra/
 
 helmfile apply -f cert-manager/helmfile.yaml
 
