@@ -3,6 +3,9 @@
 ## Deployment process
 Commented lines are actions to take outside of terminal
 ```bash
+# export ENVIRONMENT=test
+export ENVIRONMENT=production
+
 cd infra/
 
 # helmfile apply -f metrics-server/helmfile.yaml
@@ -10,7 +13,7 @@ cd infra/
 # kubectl apply -f kube-vip/namespace.yaml
 # helmfile apply -f kube-vip/helmfile.yaml # or helmfile-test.yaml
 
-helmfile apply -f cert-manager/helmfile.yaml
+helmfile apply -f cert-manager/helmfile.yaml --environment $ENVIRONMENT
 
 helmfile apply -f external-secrets/helmfile.yaml
 kubectl apply -f external-secrets/certs.yaml
