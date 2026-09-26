@@ -20,8 +20,8 @@ helmfile apply -f external-secrets/helmfile.yaml
 kubectl apply -k external-secrets/overlays/$ENVIRONMENT/ # creates base/store.yaml with overlays/$ENVIRONMENT/store.yaml patch
 kubectl apply -f external-secrets/example.yaml
 
-helmfile apply -f traefik/helmfile.yaml # or helmfile-test.yaml
-kubectl apply -f traefik/dashboard/ingress.yaml # or ingress-test.yaml
+helmfile apply -f traefik/helmfile.yaml --environment $ENVIRONMENT
+kubectl apply -k traefik/overlays/$ENVIRONMENT/
 
 kubectl apply -f cert-manager/issuers/secret-cf-token.yaml
 kubectl apply -f cert-manager/issuers/letsencrypt-staging.yaml

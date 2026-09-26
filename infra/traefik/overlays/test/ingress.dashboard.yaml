@@ -4,21 +4,11 @@ metadata:
   name: traefik-dashboard
   namespace: traefik
   annotations:
-    kubernetes.io/ingress.class: traefik-external
-    gethomepage.dev/enabled: "true"
     gethomepage.dev/href: https://traefik.test.local.hohepa.dev
-    gethomepage.dev/group: Infra
-    gethomepage.dev/name: Traefik
-    gethomepage.dev/icon: traefik.png
-    gethomepage.dev/app: traefik
 spec:
-  entryPoints:
-    - websecure
   routes:
     - match: Host(`traefik.test.local.hohepa.dev`)
       kind: Rule
       services:
         - name: api@internal
           kind: TraefikService
-  tls:
-    secretName: test-local-hohepa-dev-tls

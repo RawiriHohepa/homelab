@@ -8,7 +8,7 @@ additionalArguments:
 
 deployment:
   enabled: true
-  replicas: 3
+  replicas: 0 # overridden in {environment}.yaml
   annotations: {}
   podAnnotations: {}
   additionalContainers: []
@@ -52,6 +52,6 @@ service:
   annotations: {}
   labels: {}
   spec:
-    loadBalancerIP: 192.168.50.25 # this should match the IP in ../kube-vip/values.yaml
+    loadBalancerIP: 0 # overridden in {environment}.yaml
   loadBalancerSourceRanges: []
   externalIPs: []
