@@ -7,6 +7,6 @@ releases:
   namespace: external-secrets
   chart: external-secrets/external-secrets
   # see https://external-secrets.io/latest/introduction/stability-support/ for supported versions matching k8s version
-  version: "0.19"
+  version: "2.11"
   values:
   - "./values.yaml"

@@ -15,9 +15,9 @@ cd infra/
 
 helmfile apply -f cert-manager/helmfile.yaml --environment $ENVIRONMENT
 
-helmfile apply -f external-secrets/helmfile.yaml
 kubectl apply -f external-secrets/certs.yaml
-kubectl apply -k external-secrets/overlays/production/ # creates base/store.yaml with overlays/production/store.yaml patch
+helmfile apply -f external-secrets/helmfile.yaml
+kubectl apply -k external-secrets/overlays/$ENVIRONMENT/ # creates base/store.yaml with overlays/$ENVIRONMENT/store.yaml patch
 kubectl apply -f external-secrets/example.yaml
 
 helmfile apply -f traefik/helmfile.yaml # or helmfile-test.yaml
