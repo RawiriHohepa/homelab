@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx
+  namespace: default
+  annotations:
+    gethomepage.dev/href: https://nginx.test.local.hohepa.dev
+spec:
+  routes:
+    - match: Host(`nginx.test.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: nginx
+          port: 80

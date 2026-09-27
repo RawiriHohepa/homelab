@@ -23,19 +23,14 @@ kubectl apply -f external-secrets/example.yaml
 helmfile apply -f traefik/helmfile.yaml --environment $ENVIRONMENT
 kubectl apply -k traefik/overlays/$ENVIRONMENT/
 
-kubectl apply -f cert-manager/issuers/secret-cf-token.yaml
-kubectl apply -f cert-manager/issuers/letsencrypt-staging.yaml
-kubectl apply -f cert-manager/issuers/letsencrypt-production.yaml
-kubectl apply -f cert-manager/certificates/local-hohepa-dev-staging.yaml # or test-local-hohepa-dev-staging.yaml
-# edit nginx to use local-hohepa-dev-staging-tls
-kubectl apply -f ../services/nginx/
-kubectl apply -f ../services/nginx/ingress.yaml # or ingress-test.yaml
-# wait until nginx uses the staging cert
-kubectl apply -f cert-manager/certificates/local-hohepa-dev-production.yaml # or test-local-hohepa-dev-production.yaml
-# edit nginx to use local-hohepa-dev-tls
-kubectl apply -f ../services/nginx/ingress.yaml # or ingress-test.yaml
-# wait until nginx uses the production cert
-# kubectl delete -f ../services/nginx/
+kubectl apply -f cert-manager/secret.yaml
+kubectl apply -f cert-manager/acme-staging/issuer.yaml
+kubectl apply -k cert-manager/acme-staging/overlays/$ENVIRONMENT/
+# verify staging cert was issued successfully
+kubectl delete -k cert-manager/acme-staging/overlays/$ENVIRONMENT/
+
+kubectl apply -f cert-manager/acme-production/issuer.yaml
+kubectl apply -k cert-manager/acme-production/overlays/$ENVIRONMENT/
 
 kubectl apply -f tailscale/namespace.yaml
 kubectl apply -f tailscale/secret.yaml

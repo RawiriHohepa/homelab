@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-staging
+  namespace: default
+  annotations:
+    gethomepage.dev/href: https://nginx-staging.local.hohepa.dev
+spec:
+  routes:
+    - match: Host(`nginx-staging.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: nginx-staging
+          port: 80
