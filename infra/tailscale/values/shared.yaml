@@ -2,6 +2,3 @@
 # oauth:
 #   clientId: abc123
 #   clientSecret: abc123
-
-operatorConfig:
-  hostname: homelab-production

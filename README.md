@@ -34,8 +34,8 @@ kubectl apply -k cert-manager/acme-production/overlays/$ENVIRONMENT/
 
 kubectl apply -f tailscale/namespace.yaml
 kubectl apply -f tailscale/secret.yaml
-helmfile apply -f tailscale/helmfile.yaml # or helmfile-test.yaml
-kubectl apply -f tailscale/connector.yaml # or connector-test.yaml
+helmfile apply -f tailscale/helmfile.yaml --environment $ENVIRONMENT
+kubectl apply -k tailscale/overlays/$ENVIRONMENT/
 
 kubectl apply -f longhorn/namespace.yaml
 helmfile apply -f longhorn/helmfile.yaml

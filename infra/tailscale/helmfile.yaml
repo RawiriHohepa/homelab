@@ -1,3 +1,9 @@
+environments:
+  test:
+  production:
+
+---
+
 repositories:
 - name: tailscale
   url: https://pkgs.tailscale.com/helmcharts
@@ -8,4 +14,5 @@ releases:
   chart: tailscale/tailscale-operator
   version: "1.102.4"
   values:
-  - "./values.yaml"
+  - "./values/shared.yaml"
+  - "./values/{{ .Environment.Name }}.yaml"

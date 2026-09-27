@@ -4,7 +4,3 @@ metadata:
   name: tailscale-connector
 spec:
   hostname: homelab-connector-test
-  subnetRouter:
-    advertiseRoutes:
-      - "192.168.0.0/16"
-  exitNode: true
