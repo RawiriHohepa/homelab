@@ -6,7 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik-external
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: https://longhorn.test.local.hohepa.dev
     gethomepage.dev/group: Infra
     gethomepage.dev/name: Longhorn
     gethomepage.dev/icon: longhorn.png
@@ -14,11 +13,5 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  routes:
-    - match: Host(`longhorn.test.local.hohepa.dev`)
-      kind: Rule
-      services:
-        - name: longhorn-frontend
-          port: 80
   tls:
-    secretName: test-local-hohepa-dev-tls
+    secretName: local-hohepa-dev-tls

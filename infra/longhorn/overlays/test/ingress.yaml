@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-dashboard
+  namespace: longhorn
+  annotations:
+    gethomepage.dev/href: https://longhorn.test.local.hohepa.dev
+spec:
+  routes:
+    - match: Host(`longhorn.test.local.hohepa.dev`)
+      kind: Rule
+      services:
+        - name: longhorn-frontend
+          port: 80

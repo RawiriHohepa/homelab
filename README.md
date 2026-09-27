@@ -39,38 +39,32 @@ kubectl apply -k tailscale/overlays/$ENVIRONMENT/
 
 kubectl apply -f longhorn/namespace.yaml
 helmfile apply -f longhorn/helmfile.yaml
-kubectl apply -f longhorn/ingress.yaml # or ingress-test.yaml
+kubectl apply -k longhorn/overlays/$ENVIRONMENT/
 # restore volumes from backup or create manually
 # prod:
-# - minio-data-volume               5Gi
-# - pgadmin-config-volume           512Mi
-# - calibre-web-config-volume       5Gi
-# - jellyfin-config-volume          10Gi
-# - jellyfin-media-volume           2.5Gi
-# - uptime-kuma-data-volume         5Gi
-# - rundeck-minio-storage-volume    5Gi
-# - rundeck-mysql-storage-volume    5Gi
-# - home-assistant-config-volume    10Gi
-# - qbittorrent-config-volume       1Gi
-# - radarr-config-volume            1Gi
-# - sonarr-config-volume            1Gi
-# - readarr-config-volume           10Gi
-# - prowlarr-config-volume          5Gi
-# - bazarr-config-volume            1Gi
-# - audiobookshelf-config-volume    512Mi
-# - audiobookshelf-metadata-volume  512Mi
 # - actual-budget-data-volume       2Gi
 # - apprise-config-volume           512Mi
+# - audiobookshelf-config-volume    512Mi
+# - audiobookshelf-metadata-volume  512Mi
+# - bazarr-config-volume            1Gi
+# - calibre-web-config-volume       5Gi
+# - home-assistant-config-volume    10Gi
+# - homebox-data-volume             512Mi
+# - jellyfin-config-volume          10Gi
+# - jellyfin-media-volume           2.5Gi
+# - minio-data-volume               5Gi
+# - pgadmin-config-volume           512Mi
 # - price-buddy-storage-volume      512Mi
 # - price-buddy-database-volume     10Gi
-# - homebox-data-volume             512Mi
+# - prowlarr-config-volume          5Gi
+# - qbittorrent-config-volume       1Gi
+# - radarr-config-volume            1Gi
+# - readarr-config-volume           10Gi
+# - rundeck-minio-storage-volume    5Gi
+# - rundeck-mysql-storage-volume    5Gi
+# - sonarr-config-volume            1Gi
+# - uptime-kuma-data-volume         5Gi
 
-helmfile apply -f multus/helmfile.yaml
-kubectl apply -f multus/network-attachment-definition.yaml
-# wait for multus & network-attachment-definition
-kubectl apply -f multus/sample-pod.yaml
-ping 192.168.50.200
-kubectl delete -f multus/sample-pod.yaml
 
 kubectl apply -f cloudnative-pg/namespace.yaml
 helmfile apply -f cloudnative-pg/helmfile.yaml
